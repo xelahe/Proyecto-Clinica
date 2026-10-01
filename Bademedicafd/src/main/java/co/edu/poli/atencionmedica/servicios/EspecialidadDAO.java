@@ -6,7 +6,10 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/** CRUD de la tabla Especialidad. */
+/**
+ * DAO encargado de la persistencia de las especialidades médicas disponibles en
+ * la clínica y de su uso en la asignación de personal de salud.
+ */
 public class EspecialidadDAO extends BaseDAO implements CRUD {
 
     public EspecialidadDAO() { this(Conexion.mysql()); }
@@ -47,7 +50,7 @@ public class EspecialidadDAO extends BaseDAO implements CRUD {
         List<Especialidad> lista = consulta(cn -> {
             List<Especialidad> r = new ArrayList<>();
             try (Statement st = cn.createStatement();
-                 ResultSet rs = st.executeQuery("SELECT id_especialidad, nombre FROM Especialidad ORDER BY nombre")) {
+                ResultSet rs = st.executeQuery("SELECT id_especialidad, nombre FROM Especialidad ORDER BY nombre")) {
                 while (rs.next()) r.add(mapear(rs));
             }
             return r;

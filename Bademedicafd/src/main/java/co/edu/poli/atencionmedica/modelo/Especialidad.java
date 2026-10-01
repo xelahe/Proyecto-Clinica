@@ -3,7 +3,8 @@ package co.edu.poli.atencionmedica.modelo;
 import java.time.*;
 
 /**
- * 
+ * Define una especialidad médica que puede asignarse al personal y usarse para
+ * organizar los servicios y profesionales de la clínica.
  */
 public class Especialidad {
 

@@ -3,7 +3,8 @@ package co.edu.poli.atencionmedica.modelo;
 import java.time.*;
 
 /**
- * 
+ * Define cada línea de una receta médica, indicando el medicamento, dosis,
+ * vía de administración, frecuencia y duración del tratamiento.
  */
 public class DetalleReceta {
 

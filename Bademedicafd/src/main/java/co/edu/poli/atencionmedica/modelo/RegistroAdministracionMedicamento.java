@@ -3,7 +3,8 @@ package co.edu.poli.atencionmedica.modelo;
 import java.time.*;
 
 /**
- * 
+ * Registra la administración real de un medicamento a un paciente, con la hora,
+ * dosis, vía y observaciones del procedimiento clínico.
  */
 public class RegistroAdministracionMedicamento {
 

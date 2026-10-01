@@ -3,7 +3,8 @@ package co.edu.poli.atencionmedica.modelo;
 import java.time.*;
 
 /**
- * 
+ * Registra la valoración o calificación de la atención médica recibida por un
+ * paciente o usuario del servicio.
  */
 public class Calificacion {
 

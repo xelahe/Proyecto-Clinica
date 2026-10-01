@@ -3,7 +3,8 @@ package co.edu.poli.atencionmedica.modelo;
 import java.time.*;
 
 /**
- * 
+ * Representa al personal de salud o apoyo de la clínica con datos de
+ * especialidad, certificaciones y disponibilidad para la atención.
  */
 public class Personal extends Usuario {
 

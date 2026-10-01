@@ -3,7 +3,8 @@ package co.edu.poli.atencionmedica.modelo;
 import java.time.*;
 
 /**
- * 
+ * Registra el diagnóstico médico asociado a la atención del paciente y vinculado
+ * a un historial clínico y a una cita concreta.
  */
 public class Diagnostico {
 

@@ -3,7 +3,8 @@ package co.edu.poli.atencionmedica.modelo;
 import java.time.*;
 
 /**
- * 
+ * Representa la receta médica emitida para un tratamiento específico, con la
+ * fecha de emisión y la relación con el médico responsable.
  */
 public class RecetaMedica {
 

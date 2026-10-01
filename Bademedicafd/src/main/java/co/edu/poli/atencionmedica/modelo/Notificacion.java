@@ -3,7 +3,8 @@ package co.edu.poli.atencionmedica.modelo;
 import java.time.*;
 
 /**
- * 
+ * Representa un evento, recordatorio o aviso enviado al usuario sobre una cita,
+ * atención o cambio relevante del proceso clínico.
  */
 public class Notificacion {
 

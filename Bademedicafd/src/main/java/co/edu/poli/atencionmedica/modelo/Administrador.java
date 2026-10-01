@@ -3,7 +3,8 @@ package co.edu.poli.atencionmedica.modelo;
 import java.time.*;
 
 /**
- * 
+ * Representa al administrador del sistema y encapsula las acciones de gestión,
+ * control de usuarios y supervisión del flujo clínico.
  */
 public class Administrador extends Usuario {
 

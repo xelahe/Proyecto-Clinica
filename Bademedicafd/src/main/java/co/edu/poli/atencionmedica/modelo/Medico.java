@@ -3,7 +3,8 @@ package co.edu.poli.atencionmedica.modelo;
 import java.time.*;
 
 /**
- * 
+ * Representa al profesional médico del sistema, incluyendo su número de
+ * registro profesional y las acciones de atención médica asociadas.
  */
 public class Medico extends Personal {
 

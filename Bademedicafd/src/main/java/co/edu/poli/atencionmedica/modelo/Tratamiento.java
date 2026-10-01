@@ -3,7 +3,8 @@ package co.edu.poli.atencionmedica.modelo;
 import java.time.*;
 
 /**
- * 
+ * Define un tratamiento médico indicado para atender un diagnóstico, con fechas de
+ * inicio, fin y estado de ejecución.
  */
 public class Tratamiento {
 

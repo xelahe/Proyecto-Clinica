@@ -6,7 +6,10 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/** CRUD de Disponibilidad: días y horarios del personal de salud (HU02). */
+/**
+ * DAO de disponibilidad horaria del personal. Permite registrar los días y rangos
+ * de atención disponibles para programar citas y asignar turnos.
+ */
 public class DisponibilidadDAO extends BaseDAO implements CRUD {
 
     private static final String SELECT =

@@ -4,7 +4,11 @@ import co.edu.poli.atencionmedica.modelo.Usuario;
 
 import java.sql.*;
 
-/** Sentencias SQL compartidas por Paciente y Personal (ambos heredan de Usuario). */
+/**
+ * Utilidades SQL reutilizables para las entidades que comparten la tabla de
+ * usuarios. Centraliza inserciones, actualizaciones, búsquedas y borrados
+ * relacionados con la jerarquía de Usuario.
+ */
 final class UsuarioSql {
 
     static final String COLUMNAS = "u.id_usuario, u.nombre, u.documento, u.contacto, u.direccion, u.rol";

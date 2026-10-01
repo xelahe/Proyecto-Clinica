@@ -6,8 +6,9 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 /**
- * Utilidades comunes de los DAO: manejo de conexión, transacciones y
- * traducción de errores de MySQL a mensajes entendibles.
+ * Clase base para todos los DAO del sistema. Centraliza la apertura de
+ * conexiones, la ejecución con transacciones y la traducción de errores de
+ * base de datos a excepciones del dominio.
  */
 abstract class BaseDAO {
 

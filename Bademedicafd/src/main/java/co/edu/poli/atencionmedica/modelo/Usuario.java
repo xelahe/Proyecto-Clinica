@@ -3,7 +3,8 @@ package co.edu.poli.atencionmedica.modelo;
 import java.time.*;
 
 /**
- * 
+ * Clase base del sistema que centraliza los datos comunes de identificación,
+ * contacto y rol de cualquier usuario del módulo de atención médica.
  */
 public class Usuario {
 

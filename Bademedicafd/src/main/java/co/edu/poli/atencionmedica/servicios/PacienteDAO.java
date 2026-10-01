@@ -7,8 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * CRUD de Paciente (HU01). Un paciente ocupa tres tablas:
- * Usuario + Paciente + HistorialClinico, que se manejan en una sola transacción.
+ * DAO de pacientes que coordina la persistencia de la entidad Paciente junto con
+ * la información base de Usuario y el historial clínico asociado.
+ * Las operaciones de alta, actualización y eliminación se ejecutan en una sola
+ * transacción para preservar la integridad del modelo relacional.
  */
 public class PacienteDAO extends BaseDAO implements CRUD {
 

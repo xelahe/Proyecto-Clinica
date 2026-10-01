@@ -3,7 +3,8 @@ package co.edu.poli.atencionmedica.modelo;
 import java.time.*;
 
 /**
- * 
+ * Mantiene el historial clínico del paciente como centro de información para
+ * diagnósticos, tratamientos y evolución de la atención.
  */
 public class HistorialClinico {
 

@@ -8,16 +8,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * CRUD de Personal de salud (HU02). Usa Usuario + Personal y, si es médico, la tabla Medico.
- * read/readAll devuelven un objeto Medico cuando la persona tiene número de registro médico.
+ * DAO del personal clínico que gestiona la información compartida de Usuario,
+ * la especialidad y la certificación asociada. Cuando la persona es un médico,
+ * también persiste el número de registro profesional en la tabla Medico.
  */
 public class PersonalDAO extends BaseDAO implements CRUD {
 
     private static final String SELECT =
         "SELECT " + UsuarioSql.COLUMNAS + ", pe.tipoPersonal, pe.certificaciones, pe.vigenciaCertificacion, "
-      + "pe.id_especialidad, m.numeroRegistroMedico "
-      + "FROM Usuario u JOIN Personal pe ON pe.id_personal = u.id_usuario "
-      + "LEFT JOIN Medico m ON m.id_medico = pe.id_personal";
+    + "pe.id_especialidad, m.numeroRegistroMedico "
+    + "FROM Usuario u JOIN Personal pe ON pe.id_personal = u.id_usuario "
+    + "LEFT JOIN Medico m ON m.id_medico = pe.id_personal";
 
     public PersonalDAO() { this(Conexion.mysql()); }
     public PersonalDAO(ProveedorConexion proveedor) { super(proveedor); }
@@ -30,7 +31,7 @@ public class PersonalDAO extends BaseDAO implements CRUD {
             UsuarioSql.insertar(cn, p, "Personal");
             try (PreparedStatement ps = cn.prepareStatement(
                     "INSERT INTO Personal(id_personal, tipoPersonal, certificaciones, vigenciaCertificacion, id_especialidad) "
-                  + "VALUES (?,?,?,?,?)")) {
+                + "VALUES (?,?,?,?,?)")) {
                 ps.setInt(1, p.getId());
                 ps.setString(2, p.getTipoPersonal());
                 ps.setString(3, p.getCertificaciones());

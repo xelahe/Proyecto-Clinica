@@ -1,10 +1,8 @@
 package co.edu.poli.atencionmedica.servicios;
-
-import java.io.*;
-import java.util.*;
-
 /**
- * 
+ * Contrato base para las operaciones CRUD de cada entidad del sistema.
+ * Define el ciclo mínimo de persistencia para crear, consultar, actualizar
+ * y eliminar registros desde la capa de acceso a datos.
  */
 public interface CRUD {
 

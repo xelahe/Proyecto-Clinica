@@ -3,7 +3,8 @@ package co.edu.poli.atencionmedica.modelo;
 import java.time.*;
 
 /**
- * 
+ * Entidad que representa una cita médica solicitada por un paciente y gestionada
+ * por el personal clínico en distintos estados del proceso de atención.
  */
 public class CitaMedica {
 

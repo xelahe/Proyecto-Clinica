@@ -3,7 +3,8 @@ package co.edu.poli.atencionmedica.modelo;
 import java.time.*;
 
 /**
- * 
+ * Registra la disponibilidad horaria de un profesional para programar citas,
+ * visitas o actividades de atención médica.
  */
 public class Disponibilidad {
 

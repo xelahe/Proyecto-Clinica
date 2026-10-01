@@ -3,7 +3,8 @@ package co.edu.poli.atencionmedica.modelo;
 import java.time.*;
 
 /**
- * 
+ * Modelo del paciente, que amplía la información base del usuario con su
+ * condición de salud y necesidades de cuidado.
  */
 public class Paciente extends Usuario {
 

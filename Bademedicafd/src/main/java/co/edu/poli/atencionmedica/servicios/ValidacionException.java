@@ -1,6 +1,9 @@
 package co.edu.poli.atencionmedica.servicios;
 
-/** Se lanza cuando un dato incumple una regla de negocio o un criterio de aceptación. */
+/**
+ * Excepción de validación utilizada cuando un dato incumple una regla de negocio,
+ * una restricción del dominio o un criterio de aceptación del sistema.
+ */
 public class ValidacionException extends RuntimeException {
     public ValidacionException(String mensaje) {
         super(mensaje);

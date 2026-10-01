@@ -3,7 +3,8 @@ package co.edu.poli.atencionmedica.modelo;
 import java.time.*;
 
 /**
- * 
+ * Modelo del medicamento disponible en el inventario, con información de
+ * presentación, concentración y cantidad disponible en stock.
  */
 public class Medicamento {
 

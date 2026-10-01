@@ -6,7 +6,10 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/** CRUD de la tabla Medicamento (HU14: inventario de medicamentos). */
+/**
+ * DAO del inventario de medicamentos. Gestiona el registro, consulta, edición y
+ * eliminación de medicamentos, así como la validación de stock y presentación.
+ */
 public class MedicamentoDAO extends BaseDAO implements CRUD {
 
     private static final String SELECT =
@@ -53,7 +56,7 @@ public class MedicamentoDAO extends BaseDAO implements CRUD {
         List<Medicamento> lista = consulta(cn -> {
             List<Medicamento> r = new ArrayList<>();
             try (Statement st = cn.createStatement();
-                 ResultSet rs = st.executeQuery(SELECT + " ORDER BY nombre")) {
+                ResultSet rs = st.executeQuery(SELECT + " ORDER BY nombre")) {
                 while (rs.next()) r.add(mapear(rs));
             }
             return r;

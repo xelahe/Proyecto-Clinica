@@ -3,7 +3,8 @@ package co.edu.poli.atencionmedica.modelo;
 import java.time.*;
 
 /**
- * 
+ * Representa al familiar o acudiente del paciente y su relación con la atención
+ * médica y la información clínica del beneficiario.
  */
 public class Familiar extends Usuario {
 
