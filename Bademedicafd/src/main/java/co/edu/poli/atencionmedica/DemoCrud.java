@@ -343,7 +343,9 @@ public class DemoCrud {
         p.setDireccion(leerTexto("Dirección", 200));
         p.setCertificaciones(leerTextoOpcional("Certificaciones (Enter para omitir)", 200));
         p.setVigenciaCertificacion(leerFecha("Vigencia de la certificación (yyyy-MM-dd)"));
-        if (!hayEspecialidades()) return;
+        if (!hayEspecialidades()) {
+            return;
+        }
         p.setIdEspecialidad(leerId("ID de la especialidad"));
         if (p instanceof Medico m) {
             m.setNumeroRegistroMedico(leerTexto("Número de registro médico", 30));
@@ -404,7 +406,9 @@ public class DemoCrud {
     // ==================================================================
     private static void crearDisponibilidad() {
         System.out.println("\n== Registrar horario de disponibilidad ==");
-        if (!hayPersonal()) return;
+        if (!hayPersonal()) {
+            return;
+        }
         Disponibilidad d = new Disponibilidad();
         d.setIdPersonal(leerId("ID del personal"));
         d.setDiaSemana(elegirDia(null));
@@ -492,7 +496,9 @@ public class DemoCrud {
     // ==================================================================
     private static void crearCita() {
         System.out.println("\n== Solicitar cita ==");
-        if (!hayPacientes()) return;
+        if (!hayPacientes()) {
+            return;
+        }
         CitaMedica c = new CitaMedica();
         c.setIdPaciente(leerId("ID del paciente"));
         c.setTipoServicio(elegirTipoServicio(null));
@@ -533,7 +539,9 @@ public class DemoCrud {
             System.out.println("No se puede asignar una cita en estado " + c.getEstado() + ".");
             return;
         }
-        if (!hayPersonal()) return;
+        if (!hayPersonal()) {
+            return;
+        }
         c.setIdPersonal(leerId("ID del personal a asignar"));
         c.setFechaHoraProgramada(leerFechaHora("Fecha y hora programada (yyyy-MM-dd HH:mm)", false));
         c.setEstado("Asignada");
@@ -639,7 +647,9 @@ public class DemoCrud {
                 case 3 -> "Cuidador";
                 default -> null;
             };
-            if (tipo != null) return tipo;
+            if (tipo != null) {
+                return tipo;
+            }
             opcionInvalida();
         }
     }
@@ -649,13 +659,17 @@ public class DemoCrud {
         while (true) {
             System.out.println("Tipo de servicio:  1. VisitaMedica   2. Asistencia" + sufijoActual(actual));
             int op = leerEntero("Elija el tipo de servicio");
-            if (op == 0 && actual != null) return actual;
+            if (op == 0 && actual != null) {
+                return actual;
+            }
             String tipo = switch (op) {
                 case 1 -> "VisitaMedica";
                 case 2 -> "Asistencia";
                 default -> null;
             };
-            if (tipo != null) return tipo;
+            if (tipo != null) {
+                return tipo;
+            }
             opcionInvalida();
         }
     }
@@ -666,7 +680,9 @@ public class DemoCrud {
             System.out.println("Estado:  1. Pendiente   2. Asignada   3. En curso   4. Completada   5. Cancelada"
                 + sufijoActual(actual));
             int op = leerEntero("Elija el estado");
-            if (op == 0 && actual != null) return actual;
+            if (op == 0 && actual != null) {
+                return actual;
+            }
             String estado = switch (op) {
                 case 1 -> "Pendiente";
                 case 2 -> "Asignada";
@@ -675,7 +691,9 @@ public class DemoCrud {
                 case 5 -> "Cancelada";
                 default -> null;
             };
-            if (estado != null) return estado;
+            if (estado != null) {
+                return estado;
+            }
             opcionInvalida();
         }
     }
@@ -686,7 +704,9 @@ public class DemoCrud {
             System.out.println("Día:  1. Lunes  2. Martes  3. Miercoles  4. Jueves  5. Viernes  6. Sabado  7. Domingo"
                 + sufijoActual(actual));
             int op = leerEntero("Elija el día");
-            if (op == 0 && actual != null) return actual;
+            if (op == 0 && actual != null) {
+                return actual;
+            }
             String dia = switch (op) {
                 case 1 -> "Lunes";
                 case 2 -> "Martes";
@@ -697,7 +717,9 @@ public class DemoCrud {
                 case 7 -> "Domingo";
                 default -> null;
             };
-            if (dia != null) return dia;
+            if (dia != null) {
+                return dia;
+            }
             opcionInvalida();
         }
     }
@@ -879,8 +901,12 @@ public class DemoCrud {
         while (true) {
             System.out.print(etiqueta + ": ");
             String s = in.nextLine().trim();
-            if (s.isEmpty()) return null;
-            if (s.length() <= max) return s;
+            if (s.isEmpty()) {
+                return null;
+            }
+            if (s.length() <= max) {
+                return s;
+            }
             System.out.println("  Máximo " + max + " caracteres (escribió " + s.length() + ").");
         }
     }
@@ -899,7 +925,9 @@ public class DemoCrud {
     private static int leerId(String etiqueta) {
         while (true) {
             int n = leerEntero(etiqueta);
-            if (n > 0) return n;
+            if (n > 0) {
+                return n;
+            }
             System.out.println("  El id debe ser un número mayor que 0.");
         }
     }
@@ -907,7 +935,9 @@ public class DemoCrud {
     private static int leerEnteroNoNegativo(String etiqueta) {
         while (true) {
             int n = leerEntero(etiqueta);
-            if (n >= 0) return n;
+            if (n >= 0) {
+                return n;
+            }
             System.out.println("  No puede ser negativo.");
         }
     }
@@ -918,7 +948,9 @@ public class DemoCrud {
             System.out.print(etiqueta + ": ");
             try {
                 float n = Float.parseFloat(in.nextLine().trim().replace(',', '.'));
-                if (n >= 0) return n;
+                if (n >= 0) {
+                    return n;
+                }
                 System.out.println("  No puede ser negativo.");
             } catch (NumberFormatException e) {
                 System.out.println("  Escriba un número (por ejemplo 500 o 2.5).");
@@ -953,7 +985,9 @@ public class DemoCrud {
         while (true) {
             System.out.print(etiqueta + ": ");
             String s = in.nextLine().trim();
-            if (s.isEmpty() && opcional) return null;
+            if (s.isEmpty() && opcional) {
+                return null;
+            }
             try {
                 return LocalDateTime.parse(s, FECHA_HORA);
             } catch (DateTimeParseException e) {
@@ -981,9 +1015,15 @@ public class DemoCrud {
         while (true) {
             System.out.print(etiqueta + " [" + dato(actual) + "]: ");
             String s = in.nextLine().trim();
-            if (s.isEmpty()) return actual;
-            if (!obligatorio && s.equals("-")) return null;
-            if (s.length() <= max) return s;
+            if (s.isEmpty()) {
+                return actual;
+            }
+            if (!obligatorio && s.equals("-")) {
+                return null;
+            }
+            if (s.length() <= max) {
+                return s;
+            }
             System.out.println("  Máximo " + max + " caracteres (escribió " + s.length() + ").");
         }
     }
@@ -992,10 +1032,14 @@ public class DemoCrud {
         while (true) {
             System.out.print(etiqueta + " [" + actual + "]: ");
             String s = in.nextLine().trim();
-            if (s.isEmpty()) return actual;
+            if (s.isEmpty()) {
+                return actual;
+            }
             try {
                 int n = Integer.parseInt(s);
-                if (n > 0) return n;
+                if (n > 0) {
+                    return n;
+                }
                 System.out.println("  El id debe ser mayor que 0.");
             } catch (NumberFormatException e) {
                 System.out.println("  Escriba un número entero.");
@@ -1008,11 +1052,17 @@ public class DemoCrud {
         while (true) {
             System.out.print(etiqueta + " [" + (actual == null ? "-" : actual) + "]: ");
             String s = in.nextLine().trim();
-            if (s.isEmpty()) return actual;
-            if (s.equals("-")) return null;
+            if (s.isEmpty()) {
+                return actual;
+            }
+            if (s.equals("-")) {
+                return null;
+            }
             try {
                 int n = Integer.parseInt(s);
-                if (n > 0) return n;
+                if (n > 0) {
+                    return n;
+                }
                 System.out.println("  El id debe ser mayor que 0.");
             } catch (NumberFormatException e) {
                 System.out.println("  Escriba un número entero o - para quitarlo.");
@@ -1024,10 +1074,14 @@ public class DemoCrud {
         while (true) {
             System.out.print(etiqueta + " [" + actual + "]: ");
             String s = in.nextLine().trim();
-            if (s.isEmpty()) return actual;
+            if (s.isEmpty()) {
+                return actual;
+            }
             try {
                 int n = Integer.parseInt(s);
-                if (n >= 0) return n;
+                if (n >= 0) {
+                    return n;
+                }
                 System.out.println("  No puede ser negativo.");
             } catch (NumberFormatException e) {
                 System.out.println("  Escriba un número entero.");
@@ -1039,10 +1093,14 @@ public class DemoCrud {
         while (true) {
             System.out.print(etiqueta + " [" + actual + "]: ");
             String s = in.nextLine().trim();
-            if (s.isEmpty()) return actual;
+            if (s.isEmpty()) {
+                return actual;
+            }
             try {
                 float n = Float.parseFloat(s.replace(',', '.'));
-                if (n >= 0) return n;
+                if (n >= 0) {
+                    return n;
+                }
                 System.out.println("  No puede ser negativo.");
             } catch (NumberFormatException e) {
                 System.out.println("  Escriba un número (por ejemplo 500 o 2.5).");
@@ -1054,7 +1112,9 @@ public class DemoCrud {
         while (true) {
             System.out.print(etiqueta + " [" + (actual == null ? "-" : actual.format(FECHA)) + "]: ");
             String s = in.nextLine().trim();
-            if (s.isEmpty()) return actual;
+            if (s.isEmpty()) {
+                return actual;
+            }
             try {
                 return LocalDate.parse(s, FECHA);
             } catch (DateTimeParseException e) {
@@ -1067,7 +1127,9 @@ public class DemoCrud {
         while (true) {
             System.out.print(etiqueta + " [" + actual.format(HORA) + "]: ");
             String s = in.nextLine().trim();
-            if (s.isEmpty()) return actual;
+            if (s.isEmpty()) {
+                return actual;
+            }
             try {
                 return LocalTime.parse(s, HORA);
             } catch (DateTimeParseException e) {
@@ -1081,8 +1143,12 @@ public class DemoCrud {
         while (true) {
             System.out.print(etiqueta + " [" + fecha(actual) + "]: ");
             String s = in.nextLine().trim();
-            if (s.isEmpty()) return actual;
-            if (s.equals("-")) return null;
+            if (s.isEmpty()) {
+                return actual;
+            }
+            if (s.equals("-")) {
+                return null;
+            }
             try {
                 return LocalDateTime.parse(s, FECHA_HORA);
             } catch (DateTimeParseException e) {

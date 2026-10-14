@@ -37,7 +37,9 @@ public final class Validador {
 
     // ---------- HU01: registro de pacientes ----------
     public static void usuario(Usuario u) {
-        if (u == null) throw new ValidacionException("El usuario no puede ser nulo.");
+        if (u == null) {
+            throw new ValidacionException("El usuario no puede ser nulo.");
+        }
         obligatorio(u.getNombre(), "nombre", 150);
         obligatorio(u.getDocumento(), "documento", 20);
         obligatorio(u.getContacto(), "contacto", 100);
@@ -79,7 +81,9 @@ public final class Validador {
     }
 
     public static void disponibilidad(Disponibilidad d) {
-        if (d == null) throw new ValidacionException("La disponibilidad no puede ser nula.");
+        if (d == null) {
+            throw new ValidacionException("La disponibilidad no puede ser nula.");
+        }
         if (d.getDiaSemana() == null || !DIAS_SEMANA.contains(d.getDiaSemana())) {
             throw new ValidacionException("El día debe ser Lunes, Martes, Miercoles, Jueves, Viernes, Sabado o Domingo.");
         }
@@ -96,13 +100,17 @@ public final class Validador {
     }
 
     public static void especialidad(Especialidad e) {
-        if (e == null) throw new ValidacionException("La especialidad no puede ser nula.");
+        if (e == null) {
+            throw new ValidacionException("La especialidad no puede ser nula.");
+        }
         obligatorio(e.getNombre(), "nombre de la especialidad", 100);
     }
 
     // ---------- HU03 / HU04: solicitud de visita o asistencia ----------
     public static void cita(CitaMedica c) {
-        if (c == null) throw new ValidacionException("La cita no puede ser nula.");
+        if (c == null) {
+            throw new ValidacionException("La cita no puede ser nula.");
+        }
         if (c.getTipoServicio() == null || !TIPOS_SERVICIO.contains(c.getTipoServicio())) {
             throw new ValidacionException("El tipo de servicio debe ser VisitaMedica o Asistencia.");
         }
@@ -134,7 +142,9 @@ public final class Validador {
 
     // ---------- HU14: inventario de medicamentos ----------
     public static void medicamento(Medicamento m) {
-        if (m == null) throw new ValidacionException("El medicamento no puede ser nulo.");
+        if (m == null) {
+            throw new ValidacionException("El medicamento no puede ser nulo.");
+        }
         obligatorio(m.getNombre(), "nombre del medicamento", 100);
         opcional(m.getPresentacion(), "presentación", 100);
         if (m.getStock() < 0) {

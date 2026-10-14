@@ -2,7 +2,10 @@ package co.edu.poli.atencionmedica.servicios;
 
 import co.edu.poli.atencionmedica.modelo.Medicamento;
 
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,7 +72,9 @@ public class MedicamentoDAO extends BaseDAO implements CRUD {
         Medicamento m = tipo(entidad, Medicamento.class);
         Validador.medicamento(m);
         return consulta(cn -> {
-            if (!UsuarioSql.existe(cn, "Medicamento", "id_medicamento", id)) return false;
+            if (!UsuarioSql.existe(cn, "Medicamento", "id_medicamento", id)) {
+                return false;
+            }
             try (PreparedStatement ps = cn.prepareStatement(
                     "UPDATE Medicamento SET nombre=?, presentacion=?, concentracion=?, stock=? WHERE id_medicamento=?")) {
                 ps.setString(1, m.getNombre().trim());

@@ -2,7 +2,11 @@ package co.edu.poli.atencionmedica.servicios;
 
 import co.edu.poli.atencionmedica.modelo.Usuario;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  * Utilidades SQL reutilizables para las entidades que comparten la tabla de

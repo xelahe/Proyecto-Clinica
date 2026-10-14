@@ -2,7 +2,10 @@ package co.edu.poli.atencionmedica.servicios;
 
 import co.edu.poli.atencionmedica.modelo.Especialidad;
 
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,7 +66,9 @@ public class EspecialidadDAO extends BaseDAO implements CRUD {
         Especialidad e = tipo(entidad, Especialidad.class);
         Validador.especialidad(e);
         return consulta(cn -> {
-            if (!UsuarioSql.existe(cn, "Especialidad", "id_especialidad", id)) return false;
+            if (!UsuarioSql.existe(cn, "Especialidad", "id_especialidad", id)) {
+                return false;
+            }
             try (PreparedStatement ps = cn.prepareStatement("UPDATE Especialidad SET nombre=? WHERE id_especialidad=?")) {
                 ps.setString(1, e.getNombre().trim());
                 ps.setInt(2, id);

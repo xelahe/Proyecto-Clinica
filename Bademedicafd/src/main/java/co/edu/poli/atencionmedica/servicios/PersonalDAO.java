@@ -3,7 +3,11 @@ package co.edu.poli.atencionmedica.servicios;
 import co.edu.poli.atencionmedica.modelo.Medico;
 import co.edu.poli.atencionmedica.modelo.Personal;
 
-import java.sql.*;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -96,7 +100,9 @@ public class PersonalDAO extends BaseDAO implements CRUD {
         Personal p = tipo(entidad, Personal.class);
         Validador.personal(p);
         return transaccion(cn -> {
-            if (!UsuarioSql.existe(cn, "Personal", "id_personal", id)) return false;
+            if (!UsuarioSql.existe(cn, "Personal", "id_personal", id)) {
+                return false;
+            }
             UsuarioSql.actualizar(cn, id, p);
             try (PreparedStatement ps = cn.prepareStatement(
                     "UPDATE Personal SET tipoPersonal=?, certificaciones=?, vigenciaCertificacion=?, id_especialidad=? "

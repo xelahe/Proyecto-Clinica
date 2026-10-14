@@ -1,6 +1,6 @@
 package co.edu.poli.atencionmedica.modelo;
 
-import java.time.*;
+import java.time.LocalDateTime;
 
 /**
  * Registra el diagnóstico médico asociado a la atención del paciente y vinculado
@@ -14,27 +14,12 @@ public class Diagnostico {
     public Diagnostico() {
     }
 
-    /**
-     * 
-     */
     private int id;
 
-    /**
-     * 
-     */
     private String descripcion;
 
-    /**
-     * 
-     */
     private LocalDateTime fecha;
 
-
-
-
-    /**
-     * 
-     */
     public void registrar() {
         // TODO implement here
     }
@@ -44,15 +29,35 @@ public class Diagnostico {
     private int idCita;
 
     // ---- Getters y setters ----
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
-    public String getDescripcion() { return descripcion; }
-    public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
-    public LocalDateTime getFecha() { return fecha; }
-    public void setFecha(LocalDateTime fecha) { this.fecha = fecha; }
-    public int getIdHistorial() { return idHistorial; }
-    public void setIdHistorial(int idHistorial) { this.idHistorial = idHistorial; }
-    public int getIdCita() { return idCita; }
-    public void setIdCita(int idCita) { this.idCita = idCita; }
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+    public String getDescripcion() {
+        return descripcion;
+    }
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+    public LocalDateTime getFecha() {
+        return fecha;
+    }
+    public void setFecha(LocalDateTime fecha) {
+        this.fecha = fecha;
+    }
+    public int getIdHistorial() {
+        return idHistorial;
+    }
+    public void setIdHistorial(int idHistorial) {
+        this.idHistorial = idHistorial;
+    }
+    public int getIdCita() {
+        return idCita;
+    }
+    public void setIdCita(int idCita) {
+        this.idCita = idCita;
+    }
 
 }

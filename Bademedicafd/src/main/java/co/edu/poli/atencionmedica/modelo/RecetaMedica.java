@@ -1,6 +1,6 @@
 package co.edu.poli.atencionmedica.modelo;
 
-import java.time.*;
+import java.time.LocalDateTime;
 
 /**
  * Representa la receta médica emitida para un tratamiento específico, con la
@@ -14,29 +14,14 @@ public class RecetaMedica {
     public RecetaMedica() {
     }
 
-    /**
-     * 
-     */
     private int id;
 
-    /**
-     * 
-     */
     private LocalDateTime fechaEmision;
 
-
-
-
-    /**
-     * 
-     */
     public void emitir() {
         // TODO implement here
     }
 
-    /**
-     * 
-     */
     public void agregarDetalle() {
         // TODO implement here
     }
@@ -46,13 +31,29 @@ public class RecetaMedica {
     private int idMedico;
 
     // ---- Getters y setters ----
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
-    public LocalDateTime getFechaEmision() { return fechaEmision; }
-    public void setFechaEmision(LocalDateTime fechaEmision) { this.fechaEmision = fechaEmision; }
-    public int getIdTratamiento() { return idTratamiento; }
-    public void setIdTratamiento(int idTratamiento) { this.idTratamiento = idTratamiento; }
-    public int getIdMedico() { return idMedico; }
-    public void setIdMedico(int idMedico) { this.idMedico = idMedico; }
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+    public LocalDateTime getFechaEmision() {
+        return fechaEmision;
+    }
+    public void setFechaEmision(LocalDateTime fechaEmision) {
+        this.fechaEmision = fechaEmision;
+    }
+    public int getIdTratamiento() {
+        return idTratamiento;
+    }
+    public void setIdTratamiento(int idTratamiento) {
+        this.idTratamiento = idTratamiento;
+    }
+    public int getIdMedico() {
+        return idMedico;
+    }
+    public void setIdMedico(int idMedico) {
+        this.idMedico = idMedico;
+    }
 
 }

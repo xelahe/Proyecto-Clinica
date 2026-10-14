@@ -51,11 +51,25 @@ abstract class BaseDAO {
 
     private RuntimeException traducir(SQLException e) {
         switch (e.getErrorCode()) {
-            case 1062: return new ValidacionException("Ya existe un registro con ese valor único (documento, nombre o número de registro).");
-            case 1452: return new ValidacionException("Referencia inválida: el registro relacionado (paciente, personal, especialidad, etc.) no existe.");
-            case 1451: return new DaoException("No se puede eliminar: existen registros relacionados que dependen de este.", e);
-            case 3819: return new ValidacionException("Un valor incumple una restricción de la base de datos (CHECK).");
-            default:   return new DaoException("Error de base de datos: " + e.getMessage(), e);
+            case 1062:
+                return new ValidacionException(
+                    "Ya existe un registro con ese valor único (documento, nombre o número de registro)."
+                );
+            case 1452:
+                return new ValidacionException(
+                    "Referencia inválida: el registro relacionado (paciente, personal, especialidad, etc.) no existe."
+                );
+            case 1451:
+                return new DaoException(
+                    "No se puede eliminar: existen registros relacionados que dependen de este.",
+                    e
+                );
+            case 3819:
+                return new ValidacionException(
+                    "Un valor incumple una restricción de la base de datos (CHECK)."
+                );
+            default:
+                return new DaoException("Error de base de datos: " + e.getMessage(), e);
         }
     }
 
@@ -71,7 +85,7 @@ abstract class BaseDAO {
     protected static <T> T tipo(Object o, Class<T> clase) {
         if (!clase.isInstance(o)) {
             throw new IllegalArgumentException("Se esperaba un objeto " + clase.getSimpleName()
-                + " pero se recibió " + (o == null ? "null" : o.getClass().getSimpleName()));
+                    + " pero se recibió " + (o == null ? "null" : o.getClass().getSimpleName()));
         }
         return (T) o;
     }

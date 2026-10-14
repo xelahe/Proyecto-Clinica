@@ -1,6 +1,6 @@
 package co.edu.poli.atencionmedica.modelo;
 
-import java.time.*;
+import java.time.LocalDateTime;
 
 /**
  * Mantiene el historial clínico del paciente como centro de información para
@@ -14,21 +14,10 @@ public class HistorialClinico {
     public HistorialClinico() {
     }
 
-    /**
-     * 
-     */
     private int id;
 
-    /**
-     * 
-     */
     private LocalDateTime fechaCreacion;
 
-
-
-    /**
-     * 
-     */
     public void consultar() {
         // TODO implement here
     }
@@ -37,11 +26,23 @@ public class HistorialClinico {
     private int idPaciente;
 
     // ---- Getters y setters ----
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
-    public LocalDateTime getFechaCreacion() { return fechaCreacion; }
-    public void setFechaCreacion(LocalDateTime fechaCreacion) { this.fechaCreacion = fechaCreacion; }
-    public int getIdPaciente() { return idPaciente; }
-    public void setIdPaciente(int idPaciente) { this.idPaciente = idPaciente; }
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+    public LocalDateTime getFechaCreacion() {
+        return fechaCreacion;
+    }
+    public void setFechaCreacion(LocalDateTime fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
+    }
+    public int getIdPaciente() {
+        return idPaciente;
+    }
+    public void setIdPaciente(int idPaciente) {
+        this.idPaciente = idPaciente;
+    }
 
 }

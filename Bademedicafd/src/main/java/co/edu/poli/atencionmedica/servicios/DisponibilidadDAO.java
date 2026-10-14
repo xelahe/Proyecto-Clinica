@@ -2,7 +2,11 @@ package co.edu.poli.atencionmedica.servicios;
 
 import co.edu.poli.atencionmedica.modelo.Disponibilidad;
 
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -84,7 +88,9 @@ public class DisponibilidadDAO extends BaseDAO implements CRUD {
         Disponibilidad d = tipo(entidad, Disponibilidad.class);
         Validador.disponibilidad(d);
         return consulta(cn -> {
-            if (!UsuarioSql.existe(cn, "Disponibilidad", "id_disponibilidad", id)) return false;
+            if (!UsuarioSql.existe(cn, "Disponibilidad", "id_disponibilidad", id)) {
+                return false;
+            }
             try (PreparedStatement ps = cn.prepareStatement(
                     "UPDATE Disponibilidad SET diaSemana=?, horaInicio=?, horaFin=?, id_personal=? WHERE id_disponibilidad=?")) {
                 ps.setString(1, d.getDiaSemana());

@@ -2,7 +2,11 @@ package co.edu.poli.atencionmedica.servicios;
 
 import co.edu.poli.atencionmedica.modelo.CitaMedica;
 
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -87,7 +91,9 @@ public class CitaMedicaDAO extends BaseDAO implements CRUD {
         CitaMedica c = tipo(entidad, CitaMedica.class);
         Validador.cita(c);
         return consulta(cn -> {
-            if (!UsuarioSql.existe(cn, "CitaMedica", "id_cita", id)) return false;
+            if (!UsuarioSql.existe(cn, "CitaMedica", "id_cita", id)) {
+                return false;
+            }
             try (PreparedStatement ps = cn.prepareStatement(
                     "UPDATE CitaMedica SET tipoServicio=?, motivo=?, estado=?, fechaHoraDeseada=?, fechaHoraProgramada=?, "
                   + "fechaHoraInicioReal=?, fechaHoraFinReal=?, observaciones=?, id_personal=? WHERE id_cita=?")) {
