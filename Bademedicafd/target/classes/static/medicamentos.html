@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Administración del inventario de medicamentos">
+  <title>Medicamentos | Atención Médica en Casa</title>
+  <link rel="stylesheet" href="/css/estilos.css">
+  <script src="/js/medicamentos.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="Atención Médica en Casa, inicio">
+      <span class="brand-mark" aria-hidden="true">+</span>
+      <span>Atención Médica <strong>en Casa</strong></span>
+    </a>
+    <span class="topbar-label">Inventario de medicamentos</span>
+  </header>
+
+  <main class="layout">
+    <section class="intro" aria-labelledby="page-title">
+      <p class="eyebrow">GESTIÓN DE MEDICAMENTOS</p>
+      <h1 id="page-title">Inventario de medicamentos</h1>
+      <p class="intro-copy">Registra y mantén actualizado el inventario disponible.</p>
+      <p class="intro-copy">Prototipo local de desarrollo; aún no incluye inicio de sesión ni control de acceso.</p>
+    </section>
+
+    <section class="panel form-panel" aria-labelledby="form-title">
+      <div class="panel-heading">
+        <div>
+          <p class="eyebrow">INFORMACIÓN DEL MEDICAMENTO</p>
+          <h2 id="form-title">Nuevo medicamento</h2>
+        </div>
+        <button id="cancel-edit" class="button button-quiet hidden" type="button">Cancelar edición</button>
+      </div>
+
+      <form id="medication-form">
+        <input id="medication-id" type="hidden">
+        <div class="form-grid">
+          <label>
+            Nombre <span class="required">*</span>
+            <input id="nombre" name="nombre" maxlength="100" required>
+          </label>
+          <label>
+            Presentación
+            <input id="presentacion" name="presentacion" maxlength="100" placeholder="Ej. tabletas, jarabe">
+          </label>
+          <label>
+            Concentración
+            <input id="concentracion" name="concentracion" type="number" min="0" step="any" value="0">
+          </label>
+          <label>
+            Stock disponible <span class="required">*</span>
+            <input id="stock" name="stock" type="number" min="0" step="1" value="0" required>
+          </label>
+        </div>
+        <div class="form-footer">
+          <p class="form-note"><span class="required">*</span> Campos obligatorios</p>
+          <button id="save-button" class="button button-primary" type="submit">Guardar medicamento</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="panel list-panel" aria-labelledby="list-title">
+      <div class="panel-heading list-heading">
+        <div>
+          <p class="eyebrow">REGISTROS</p>
+          <h2 id="list-title">Medicamentos registrados <span id="medication-count" class="count">0</span></h2>
+        </div>
+        <button id="refresh-button" class="button button-secondary" type="button">Actualizar lista</button>
+      </div>
+      <p id="feedback" class="feedback" role="status" aria-live="polite"></p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Medicamento</th>
+              <th scope="col">Presentación</th>
+              <th scope="col">Concentración</th>
+              <th scope="col">Stock</th>
+              <th scope="col">Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="medication-list">
+            <tr><td class="empty-state" colspan="5">Cargando medicamentos...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
