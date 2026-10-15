@@ -1,20 +1,13 @@
-const form = document.querySelector("#patient-form");
-const patientId = document.querySelector("#patient-id");
-const patientList = document.querySelector("#patient-list");
-const patientCount = document.querySelector("#patient-count");
+const form = document.querySelector("#medication-form");
+const medicationId = document.querySelector("#medication-id");
+const medicationList = document.querySelector("#medication-list");
+const medicationCount = document.querySelector("#medication-count");
 const feedback = document.querySelector("#feedback");
 const formTitle = document.querySelector("#form-title");
 const saveButton = document.querySelector("#save-button");
 const cancelEditButton = document.querySelector("#cancel-edit");
 
-const fields = [
-    "nombre",
-    "documento",
-    "contacto",
-    "direccion",
-    "condicionSalud",
-    "necesidadesCuidado"
-];
+const fields = ["nombre", "presentacion", "concentracion", "stock"];
 
 function showFeedback(message, isError = false) {
     feedback.textContent = message;
@@ -46,7 +39,7 @@ async function request(url, options = {}) {
 
 function addCell(row, value) {
     const cell = document.createElement("td");
-    cell.textContent = value || "—";
+    cell.textContent = value ?? "—";
     row.append(cell);
 }
 
@@ -59,100 +52,101 @@ function addActionButton(container, label, className, onClick) {
     container.append(button);
 }
 
-function renderPatients(patients) {
-    patientList.replaceChildren();
-    patientCount.textContent = String(patients.length);
+function renderMedications(medications) {
+    medicationList.replaceChildren();
+    medicationCount.textContent = String(medications.length);
 
-    if (patients.length === 0) {
+    if (medications.length === 0) {
         const row = document.createElement("tr");
         const cell = document.createElement("td");
         cell.className = "empty-state";
-        cell.colSpan = 6;
-        cell.textContent = "Aún no hay pacientes registrados.";
+        cell.colSpan = 5;
+        cell.textContent = "Aún no hay medicamentos registrados.";
         row.append(cell);
-        patientList.append(row);
+        medicationList.append(row);
         return;
     }
 
-    for (const patient of patients) {
+    for (const medication of medications) {
         const row = document.createElement("tr");
-        addCell(row, patient.nombre);
-        addCell(row, patient.documento);
-        addCell(row, patient.contacto);
-        addCell(row, patient.direccion);
-        addCell(row, patient.condicionSalud);
+        addCell(row, medication.nombre);
+        addCell(row, medication.presentacion);
+        addCell(row, medication.concentracion);
+        addCell(row, medication.stock);
 
         const actions = document.createElement("td");
         const actionGroup = document.createElement("div");
         actionGroup.className = "row-actions";
-        addActionButton(actionGroup, "Editar", "button-secondary", () => editPatient(patient));
-        addActionButton(actionGroup, "Eliminar", "button-delete", () => deletePatient(patient));
+        addActionButton(actionGroup, "Editar", "button-secondary", () => editMedication(medication));
+        addActionButton(actionGroup, "Eliminar", "button-delete", () => deleteMedication(medication));
         actions.append(actionGroup);
         row.append(actions);
-        patientList.append(row);
+        medicationList.append(row);
     }
 }
 
-async function loadPatients() {
+async function loadMedications() {
     showFeedback("");
     try {
-        const patients = await request("/api/pacientes");
-        renderPatients(patients);
+        const medications = await request("/api/medicamentos");
+        renderMedications(medications);
     } catch (error) {
         showFeedback(error.message, true);
-        patientList.replaceChildren();
+        medicationList.replaceChildren();
         const row = document.createElement("tr");
         const cell = document.createElement("td");
         cell.className = "empty-state";
-        cell.colSpan = 6;
+        cell.colSpan = 5;
         cell.textContent = "No se pudo cargar la lista. Revisa que el servidor y MySQL estén disponibles.";
         row.append(cell);
-        patientList.append(row);
+        medicationList.append(row);
     }
 }
 
-function editPatient(patient) {
-    patientId.value = patient.id;
+function editMedication(medication) {
+    medicationId.value = medication.id;
     for (const field of fields) {
-        form.elements[field].value = patient[field] || "";
+        form.elements[field].value = medication[field] ?? "";
     }
-    formTitle.textContent = "Editar paciente";
+    formTitle.textContent = "Editar medicamento";
     saveButton.textContent = "Guardar cambios";
     cancelEditButton.classList.remove("hidden");
-    showFeedback(`Editando a ${patient.nombre}.`);
+    showFeedback(`Editando ${medication.nombre}.`);
     document.querySelector("#nombre").focus();
 }
 
 function resetForm() {
     form.reset();
-    patientId.value = "";
-    formTitle.textContent = "Nuevo paciente";
-    saveButton.textContent = "Guardar paciente";
+    medicationId.value = "";
+    formTitle.textContent = "Nuevo medicamento";
+    saveButton.textContent = "Guardar medicamento";
     cancelEditButton.classList.add("hidden");
     showFeedback("");
 }
 
-async function savePatient(event) {
+async function saveMedication(event) {
     event.preventDefault();
     saveButton.disabled = true;
     showFeedback("");
 
-    const patient = Object.fromEntries(fields.map(field => [
+    const medication = Object.fromEntries(fields.map(field => [
         field,
-        form.elements[field].value.trim()
+        ["concentracion", "stock"].includes(field)
+            ? Number(form.elements[field].value || 0)
+            : form.elements[field].value.trim()
     ]));
-    const id = patientId.value;
-    const url = id ? `/api/pacientes/${encodeURIComponent(id)}` : "/api/pacientes";
+    const id = medicationId.value;
+    const url = id ? `/api/medicamentos/${encodeURIComponent(id)}` : "/api/medicamentos";
     const method = id ? "PUT" : "POST";
 
     try {
         await request(url, {
             method,
-            body: JSON.stringify(patient)
+            body: JSON.stringify(medication)
         });
         resetForm();
-        await loadPatients();
-        showFeedback(id ? "Paciente actualizado correctamente." : "Paciente creado correctamente.");
+        await loadMedications();
+        showFeedback(id ? "Medicamento actualizado correctamente." : "Medicamento creado correctamente.");
     } catch (error) {
         showFeedback(error.message, true);
     } finally {
@@ -160,24 +154,24 @@ async function savePatient(event) {
     }
 }
 
-async function deletePatient(patient) {
-    if (!window.confirm(`¿Eliminar el registro de ${patient.nombre}?`)) {
+async function deleteMedication(medication) {
+    if (!window.confirm(`¿Eliminar el registro de ${medication.nombre}?`)) {
         return;
     }
     showFeedback("");
     try {
-        await request(`/api/pacientes/${encodeURIComponent(patient.id)}`, { method: "DELETE" });
-        if (patientId.value === String(patient.id)) {
+        await request(`/api/medicamentos/${encodeURIComponent(medication.id)}`, { method: "DELETE" });
+        if (medicationId.value === String(medication.id)) {
             resetForm();
         }
-        await loadPatients();
-        showFeedback("Paciente eliminado correctamente.");
+        await loadMedications();
+        showFeedback("Medicamento eliminado correctamente.");
     } catch (error) {
         showFeedback(error.message, true);
     }
 }
 
-form.addEventListener("submit", savePatient);
+form.addEventListener("submit", saveMedication);
 cancelEditButton.addEventListener("click", resetForm);
-document.querySelector("#refresh-button").addEventListener("click", loadPatients);
-loadPatients();
+document.querySelector("#refresh-button").addEventListener("click", loadMedications);
+loadMedications();

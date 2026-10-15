@@ -1,5 +1,6 @@
 package co.edu.poli.atencionmedica;
 
+import co.edu.poli.atencionmedica.servicios.MedicamentoDAO;
 import co.edu.poli.atencionmedica.servicios.PacienteDAO;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -15,5 +16,10 @@ public class AtencionMedicaApplication {
     @Bean
     PacienteDAO pacienteDAO() {
         return new PacienteDAO();
+    }
+
+    @Bean
+    MedicamentoDAO medicamentoDAO() {
+        return new MedicamentoDAO();
     }
 }
