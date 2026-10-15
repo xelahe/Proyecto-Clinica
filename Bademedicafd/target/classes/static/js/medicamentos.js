@@ -1,3 +1,4 @@
+// Referencias al formulario, la tabla y los controles que se actualizan durante el CRUD.
 const form = document.querySelector("#medication-form");
 const medicationId = document.querySelector("#medication-id");
 const medicationList = document.querySelector("#medication-list");
@@ -9,11 +10,13 @@ const cancelEditButton = document.querySelector("#cancel-edit");
 
 const fields = ["nombre", "presentacion", "concentracion", "stock"];
 
+/** Muestra un mensaje de estado y aplica el estilo de error cuando corresponde. */
 function showFeedback(message, isError = false) {
     feedback.textContent = message;
     feedback.classList.toggle("error", isError);
 }
 
+/** Ejecuta una solicitud JSON al API y convierte las respuestas no exitosas en errores visibles. */
 async function request(url, options = {}) {
     const response = await fetch(url, {
         ...options,
@@ -37,12 +40,14 @@ async function request(url, options = {}) {
     return response.status === 204 ? null : response.json();
 }
 
+/** Crea una celda de tabla usando texto para evitar interpretar los datos como HTML. */
 function addCell(row, value) {
     const cell = document.createElement("td");
     cell.textContent = value ?? "—";
     row.append(cell);
 }
 
+/** Crea un botón de acción y conecta el manejador correspondiente. */
 function addActionButton(container, label, className, onClick) {
     const button = document.createElement("button");
     button.type = "button";
@@ -52,6 +57,7 @@ function addActionButton(container, label, className, onClick) {
     container.append(button);
 }
 
+/** Actualiza el contador y construye las filas del inventario, incluida la vista vacía. */
 function renderMedications(medications) {
     medicationList.replaceChildren();
     medicationCount.textContent = String(medications.length);
@@ -85,6 +91,7 @@ function renderMedications(medications) {
     }
 }
 
+/** Recupera el inventario desde el API y presenta un estado de error si la consulta falla. */
 async function loadMedications() {
     showFeedback("");
     try {
@@ -103,6 +110,7 @@ async function loadMedications() {
     }
 }
 
+/** Copia los datos del medicamento seleccionado al formulario y activa el modo de edición. */
 function editMedication(medication) {
     medicationId.value = medication.id;
     for (const field of fields) {
@@ -115,6 +123,7 @@ function editMedication(medication) {
     document.querySelector("#nombre").focus();
 }
 
+/** Limpia el formulario y restaura los textos y controles del modo de alta. */
 function resetForm() {
     form.reset();
     medicationId.value = "";
@@ -124,6 +133,7 @@ function resetForm() {
     showFeedback("");
 }
 
+/** Envía los campos como alta o actualización según exista un identificador seleccionado. */
 async function saveMedication(event) {
     event.preventDefault();
     saveButton.disabled = true;
@@ -154,6 +164,7 @@ async function saveMedication(event) {
     }
 }
 
+/** Solicita confirmación antes de borrar y actualiza la tabla tras completar la operación. */
 async function deleteMedication(medication) {
     if (!window.confirm(`¿Eliminar el registro de ${medication.nombre}?`)) {
         return;

@@ -3,10 +3,26 @@
 Proyecto Java 17 + Maven + Spring Boot, JDBC y MySQL (`BaseDatoMedicaFD`). Incluye una interfaz web para gestionar pacientes.
 
 ## Ejecutar la aplicación web
-1. Crear la base de datos cargando `sql/Basemedicafd2.sql` en MySQL.
-2. Configurar `DB_URL`, `DB_USER` y `DB_PASSWORD` como variables de entorno para la conexión JDBC.
+1. Iniciar MySQL y crear la base de datos `BaseDatoMedicaFD` con las tablas del proyecto.
+   El script `sql/Basemedicafd2.sql` crea el esquema completo, pero **elimina primero
+   cualquier base existente con ese nombre**. Ejecútalo solo si quieres reiniciar la
+   base o si todavía no contiene datos que debas conservar.
+2. La conexión JDBC usa por defecto `localhost:3306/BaseDatoMedicaFD`. Si tus datos de
+   acceso son distintos, define las variables `DB_URL`, `DB_USER` y `DB_PASSWORD` en
+   la misma terminal desde la que iniciarás Maven.
+
+   En PowerShell, por ejemplo:
+
+   ```powershell
+   $env:DB_URL = "jdbc:mysql://localhost:3306/BaseDatoMedicaFD?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=America/Bogota"
+   $env:DB_USER = "tu_usuario"
+   $env:DB_PASSWORD = "tu_contraseña"
+   ```
+
+   No guardes contraseñas reales en el código ni en archivos versionados.
 3. Desde esta carpeta, ejecutar `mvn spring-boot:run`.
-4. Abrir `http://localhost:8080` en el navegador.
+4. Abrir `http://localhost:8080` en el navegador. Las operaciones de pacientes y
+   medicamentos accederán a MySQL por medio de sus DAO JDBC.
 
 La aplicación sirve la interfaz desde `src/main/resources/static/` y expone el CRUD de pacientes en `/api/pacientes`. La lista y las operaciones de guardar, editar y eliminar requieren que MySQL esté activo y configurado.
 

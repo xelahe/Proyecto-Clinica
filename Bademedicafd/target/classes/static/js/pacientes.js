@@ -1,3 +1,4 @@
+// Referencias al formulario, la tabla y los controles que se actualizan durante el CRUD.
 const form = document.querySelector("#patient-form");
 const patientId = document.querySelector("#patient-id");
 const patientList = document.querySelector("#patient-list");
@@ -16,11 +17,13 @@ const fields = [
     "necesidadesCuidado"
 ];
 
+/** Muestra un mensaje de estado y aplica el estilo de error cuando corresponde. */
 function showFeedback(message, isError = false) {
     feedback.textContent = message;
     feedback.classList.toggle("error", isError);
 }
 
+/** Ejecuta una solicitud JSON al API y convierte las respuestas no exitosas en errores visibles. */
 async function request(url, options = {}) {
     const response = await fetch(url, {
         ...options,
@@ -44,12 +47,14 @@ async function request(url, options = {}) {
     return response.status === 204 ? null : response.json();
 }
 
+/** Crea una celda de tabla usando texto para mantener los datos como contenido plano. */
 function addCell(row, value) {
     const cell = document.createElement("td");
     cell.textContent = value || "—";
     row.append(cell);
 }
 
+/** Crea un botón de acción y conecta el manejador correspondiente. */
 function addActionButton(container, label, className, onClick) {
     const button = document.createElement("button");
     button.type = "button";
@@ -59,6 +64,7 @@ function addActionButton(container, label, className, onClick) {
     container.append(button);
 }
 
+/** Actualiza el contador y dibuja las filas del directorio, incluida la vista vacía. */
 function renderPatients(patients) {
     patientList.replaceChildren();
     patientCount.textContent = String(patients.length);
@@ -93,6 +99,7 @@ function renderPatients(patients) {
     }
 }
 
+/** Recupera el directorio desde el API y muestra una guía si la consulta falla. */
 async function loadPatients() {
     showFeedback("");
     try {
@@ -111,6 +118,7 @@ async function loadPatients() {
     }
 }
 
+/** Copia el paciente seleccionado al formulario y activa el modo de edición. */
 function editPatient(patient) {
     patientId.value = patient.id;
     for (const field of fields) {
@@ -123,6 +131,7 @@ function editPatient(patient) {
     document.querySelector("#nombre").focus();
 }
 
+/** Limpia el formulario y restaura los textos y controles del modo de alta. */
 function resetForm() {
     form.reset();
     patientId.value = "";
@@ -132,6 +141,7 @@ function resetForm() {
     showFeedback("");
 }
 
+/** Envía los campos como alta o actualización según exista un identificador seleccionado. */
 async function savePatient(event) {
     event.preventDefault();
     saveButton.disabled = true;
@@ -160,6 +170,7 @@ async function savePatient(event) {
     }
 }
 
+/** Solicita confirmación antes de borrar y actualiza la tabla tras completar la operación. */
 async function deletePatient(patient) {
     if (!window.confirm(`¿Eliminar el registro de ${patient.nombre}?`)) {
         return;

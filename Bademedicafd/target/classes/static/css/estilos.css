@@ -1,3 +1,4 @@
+/* Colores, tipografía y medidas globales de las pantallas de administración. */
 :root {
     color-scheme: light;
     font-family: "Segoe UI", Arial, sans-serif;
@@ -12,6 +13,7 @@
     --surface: #fff;
 }
 
+/* Restablecimiento de caja y composición general del encabezado y contenido. */
 * {
     box-sizing: border-box;
 }
@@ -64,6 +66,7 @@ body {
     margin: 40px auto 64px;
 }
 
+/* Jerarquía visual de títulos, introducción y paneles de formulario y listado. */
 .intro {
     margin-bottom: 24px;
 }
@@ -113,6 +116,7 @@ h2 {
     margin-bottom: 22px;
 }
 
+/* Distribución de campos y estilos de controles accesibles del formulario. */
 .form-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -166,6 +170,7 @@ textarea {
     margin: 0;
 }
 
+/* Apariencia y estados de interacción de botones y avisos al usuario. */
 .button {
     min-height: 38px;
     border: 1px solid transparent;
@@ -203,6 +208,7 @@ textarea {
     background: #f4f9f9;
 }
 
+/* Contador, tabla, acciones por fila y estado sin resultados. */
 .list-heading {
     margin-bottom: 12px;
 }
@@ -290,6 +296,7 @@ td:first-child {
     display: none;
 }
 
+/* Ajustes de composición para tabletas y ventanas estrechas. */
 @media (max-width: 700px) {
     .topbar {
         min-height: 60px;
@@ -312,6 +319,7 @@ td:first-child {
     }
 }
 
+/* Ajustes adicionales para móviles pequeños. */
 @media (max-width: 440px) {
     .topbar-label {
         display: none;
