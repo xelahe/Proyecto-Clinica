@@ -25,7 +25,10 @@ public final class Conexion {
     public static Connection abrir() throws SQLException {
         String url  = env("DB_URL", URL_POR_DEFECTO);
         String user = env("DB_USER", "root");
-        String pass = env("DB_PASSWORD", "Poli123*");
+        String pass = System.getenv("DB_PASSWORD");
+        if (pass == null || pass.isBlank()) {
+            throw new SQLException("Debe definir la variable de entorno DB_PASSWORD para conectarse a MySQL.");
+        }
         return DriverManager.getConnection(url, user, pass);
     }
 

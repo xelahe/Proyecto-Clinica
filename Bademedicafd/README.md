@@ -3,13 +3,15 @@
 Proyecto Java 17 + Maven + Spring Boot, JDBC y MySQL (`BaseDatoMedicaFD`). Incluye una interfaz web para gestionar pacientes.
 
 ## Ejecutar la aplicación web
-1. Iniciar MySQL y crear la base de datos `BaseDatoMedicaFD` con las tablas del proyecto.
+1. Iniciar el servidor MySQL local (la conexión de MySQL Workbench debe usar el mismo
+   servidor, host `127.0.0.1` y puerto `3306`) y crear la base de datos `BaseDatoMedicaFD`
+   con las tablas del proyecto. Puedes ejecutar el script desde Workbench.
    El script `sql/Basemedicafd2.sql` crea el esquema completo, pero **elimina primero
    cualquier base existente con ese nombre**. Ejecútalo solo si quieres reiniciar la
    base o si todavía no contiene datos que debas conservar.
-2. La conexión JDBC usa por defecto `localhost:3306/BaseDatoMedicaFD`. Si tus datos de
-   acceso son distintos, define las variables `DB_URL`, `DB_USER` y `DB_PASSWORD` en
-   la misma terminal desde la que iniciarás Maven.
+2. La conexión JDBC usa por defecto `localhost:3306/BaseDatoMedicaFD` y el usuario
+   `root`. Define `DB_PASSWORD` en la misma terminal desde la que iniciarás Maven.
+   Si tu usuario, host o puerto son distintos, configura también `DB_USER` o `DB_URL`.
 
    En PowerShell, por ejemplo:
 
@@ -21,6 +23,9 @@ Proyecto Java 17 + Maven + Spring Boot, JDBC y MySQL (`BaseDatoMedicaFD`). Inclu
 
    No guardes contraseñas reales en el código ni en archivos versionados.
 3. Desde esta carpeta, ejecutar `mvn spring-boot:run`.
+   Al iniciar, la aplicación comprueba la conexión y muestra en la consola el resultado
+   y la dirección local; el arranque falla con un mensaje explícito si no puede acceder
+   a MySQL.
 4. Abrir `http://localhost:8080` en el navegador. Las operaciones de pacientes y
    medicamentos accederán a MySQL por medio de sus DAO JDBC.
 
