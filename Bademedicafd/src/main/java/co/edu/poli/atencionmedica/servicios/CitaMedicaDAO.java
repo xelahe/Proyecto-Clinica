@@ -23,6 +23,7 @@ public class CitaMedicaDAO extends BaseDAO implements CRUD {
     public CitaMedicaDAO() { this(Conexion.mysql()); }
     public CitaMedicaDAO(ProveedorConexion proveedor) { super(proveedor); }
 
+    /** Crea una solicitud pendiente sin asignar personal y refleja la clave generada en el modelo. */
     @Override
     public boolean create(Object entidad) {
         CitaMedica c = tipo(entidad, CitaMedica.class);
@@ -48,6 +49,7 @@ public class CitaMedicaDAO extends BaseDAO implements CRUD {
         });
     }
 
+    /** Recupera una cita por su clave primaria, o {@code null} si no existe. */
     @Override
     public CitaMedica read(int id) {
         return consulta(cn -> {
@@ -60,6 +62,7 @@ public class CitaMedicaDAO extends BaseDAO implements CRUD {
         });
     }
 
+    /** Devuelve todas las citas ordenadas por identificador. */
     @Override
     public CitaMedica[] readAll() {
         return listar(SELECT + " ORDER BY id_cita", null);
@@ -114,6 +117,7 @@ public class CitaMedicaDAO extends BaseDAO implements CRUD {
         });
     }
 
+    /** Elimina la cita indicada y comunica si se encontró el registro. */
     @Override
     public boolean delete(int id) {
         return consulta(cn -> UsuarioSql.borrarPor(cn, "CitaMedica", "id_cita", id) > 0);

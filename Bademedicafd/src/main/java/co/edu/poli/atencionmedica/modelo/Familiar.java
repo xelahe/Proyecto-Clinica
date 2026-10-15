@@ -15,14 +15,17 @@ public class Familiar extends Usuario {
 
     private String parentesco;
 
+    /** Punto previsto para solicitar atención en nombre del paciente relacionado; aún no tiene lógica. */
     public void solicitarServicio() {
         // TODO implement here
     }
 
+    /** Punto previsto para consultar el historial del paciente relacionado; aún no tiene lógica. */
     public void consultarHistorial() {
         // TODO implement here
     }
 
+    /** Punto previsto para calificar la atención recibida por el paciente; aún no tiene lógica. */
     public void calificarAtencion() {
         // TODO implement here
     }

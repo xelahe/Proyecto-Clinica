@@ -24,6 +24,7 @@ public class PacienteDAO extends BaseDAO implements CRUD {
     public PacienteDAO() { this(Conexion.mysql()); }
     public PacienteDAO(ProveedorConexion proveedor) { super(proveedor); }
 
+    /** Inserta el usuario y perfil de paciente junto con su historial en una transacción atómica. */
     @Override
     public boolean create(Object entidad) {
         Paciente p = tipo(entidad, Paciente.class);
@@ -46,6 +47,7 @@ public class PacienteDAO extends BaseDAO implements CRUD {
         });
     }
 
+    /** Recupera al paciente por identificador, combinando los datos de Usuario y Paciente. */
     @Override
     public Paciente read(int id) {
         return consulta(cn -> {
@@ -70,6 +72,7 @@ public class PacienteDAO extends BaseDAO implements CRUD {
         });
     }
 
+    /** Devuelve los pacientes ordenados por nombre. */
     @Override
     public Paciente[] readAll() {
         List<Paciente> lista = consulta(cn -> {
@@ -83,6 +86,7 @@ public class PacienteDAO extends BaseDAO implements CRUD {
         return lista.toArray(new Paciente[0]);
     }
 
+    /** Actualiza los datos compartidos y clínicos dentro de una sola transacción. */
     @Override
     public boolean update(int id, Object entidad) {
         Paciente p = tipo(entidad, Paciente.class);
@@ -103,6 +107,7 @@ public class PacienteDAO extends BaseDAO implements CRUD {
         });
     }
 
+    /** Elimina primero las filas dependientes conocidas y luego el usuario raíz en una transacción. */
     @Override
     public boolean delete(int id) {
         return transaccion(cn -> {

@@ -18,10 +18,12 @@ public class RecetaMedica {
 
     private LocalDateTime fechaEmision;
 
+    /** Punto previsto para emitir la receta del tratamiento; aún no tiene lógica. */
     public void emitir() {
         // TODO implement here
     }
 
+    /** Punto previsto para agregar un medicamento y sus instrucciones a la receta; aún no tiene lógica. */
     public void agregarDetalle() {
         // TODO implement here
     }

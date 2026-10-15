@@ -1,3 +1,4 @@
+/* Tema visual y variables compartidas; el tema oscuro puede activarse por atributo. */
 :root {
     --bg: #FFFFFF;
     --surface: #F1F8FC;
@@ -34,6 +35,7 @@
     --line: #2A3A32;
 }
 
+/* Normalización, tipografía base y ancho común del contenido. */
 * {
     box-sizing: border-box;
 }
@@ -61,6 +63,7 @@ h3 {
     letter-spacing: -0.01em;
 }
 
+/* Navegación, botones y composición de la portada. */
 .wrap {
     max-width: 1120px;
     margin: 0 auto;
@@ -148,6 +151,7 @@ section {
     font-size: 16px;
 }
 
+/* Rejillas y bloques para presentar características, equipo y servicios. */
 .feature-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -256,6 +260,7 @@ section {
     font-size: 14.5px;
 }
 
+/* Testimonio, pasos de solicitud y sección informativa de medicamentos. */
 .quote-block {
     display: grid;
     grid-template-columns: 220px 1fr;
@@ -338,6 +343,7 @@ section {
     background: var(--surface);
 }
 
+/* Cierre de contacto y pie de página. */
 .contact {
     text-align: center;
 }
@@ -379,6 +385,7 @@ footer .brand {
     font-size: 16px;
 }
 
+/* Reorganiza las secciones en pantallas medianas y móviles. */
 @media (max-width: 860px) {
     .feature-grid {
         grid-template-columns: 1fr 1fr;

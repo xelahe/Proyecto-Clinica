@@ -24,6 +24,7 @@ public class RegistroAdministracionMedicamento {
 
     private String observacion;
 
+    /** Punto previsto para guardar la administración realizada por el personal; aún no tiene lógica. */
     public void registrar() {
         // TODO implement here
     }

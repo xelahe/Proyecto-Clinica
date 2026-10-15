@@ -22,10 +22,12 @@ public class Notificacion {
 
     private boolean leida;
 
+    /** Punto previsto para enviar la notificación al usuario asociado; aún no tiene lógica. */
     public void enviar() {
         // TODO implement here
     }
 
+    /** Punto previsto para marcar el aviso como leído; aún no tiene lógica. */
     public void marcarLeida() {
         // TODO implement here
     }

@@ -10,5 +10,6 @@ import java.sql.SQLException;
  */
 @FunctionalInterface
 public interface ProveedorConexion {
+    /** Abre una conexión que el DAO cerrará al terminar la operación. */
     Connection abrir() throws SQLException;
 }

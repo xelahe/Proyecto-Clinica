@@ -6,34 +6,19 @@ package co.edu.poli.atencionmedica.servicios;
  */
 public interface CRUD {
 
-    /**
-     * @param entidad 
-     * @return
-     */
+    /** Persiste una entidad del tipo admitido por la implementación del contrato. */
     public boolean create(Object entidad);
 
-    /**
-     * @param id 
-     * @return
-     */
+    /** Busca por identificador; devuelve {@code null} cuando no existe el registro. */
     public Object read(int id);
 
-    /**
-     * @return
-     */
+    /** Devuelve todos los registros de la entidad gestionada por el DAO. */
     public Object[] readAll();
 
-    /**
-     * @param id 
-     * @param entidad 
-     * @return
-     */
+    /** Actualiza el registro identificado y devuelve {@code false} si no existe. */
     public boolean update(int id, Object entidad);
 
-    /**
-     * @param id 
-     * @return
-     */
+    /** Elimina el registro identificado y devuelve si se encontró para eliminarlo. */
     public boolean delete(int id);
 
 }

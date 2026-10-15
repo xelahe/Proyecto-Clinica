@@ -17,18 +17,22 @@ public class Paciente extends Usuario {
 
     private String necesidadesCuidado;
 
+    /** Punto previsto para iniciar el registro del paciente; aún no tiene lógica. */
     public void registrarse() {
         // TODO implement here
     }
 
+    /** Punto previsto para solicitar un servicio de atención médica; aún no tiene lógica. */
     public void solicitarServicio() {
         // TODO implement here
     }
 
+    /** Punto previsto para consultar el historial clínico propio; aún no tiene lógica. */
     public void consultarHistorial() {
         // TODO implement here
     }
 
+    /** Punto previsto para calificar la atención recibida; aún no tiene lógica. */
     public void calificarAtencion() {
         // TODO implement here
     }

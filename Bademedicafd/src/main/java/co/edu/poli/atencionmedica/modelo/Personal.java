@@ -21,18 +21,22 @@ public class Personal extends Usuario {
 
     private LocalDate vigenciaCertificacion;
 
+    /** Punto previsto para consultar los horarios disponibles del profesional; aún no tiene lógica. */
     public void consultarDisponibilidad() {
         // TODO implement here
     }
 
+    /** Punto previsto para iniciar una cita asignada; aún no tiene lógica. */
     public void iniciarCita() {
         // TODO implement here
     }
 
+    /** Punto previsto para completar una cita en curso; aún no tiene lógica. */
     public void completarCita() {
         // TODO implement here
     }
 
+    /** Punto previsto para registrar la administración de un medicamento; aún no tiene lógica. */
     public void registrarAdministracion() {
         // TODO implement here
     }

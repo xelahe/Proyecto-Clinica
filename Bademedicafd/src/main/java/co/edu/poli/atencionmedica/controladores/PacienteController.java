@@ -16,21 +16,25 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.net.URI;
 
+/** Expone las operaciones HTTP del CRUD de pacientes bajo {@code /api/pacientes}. */
 @RestController
 @RequestMapping("/api/pacientes")
 public class PacienteController {
 
     private final PacienteDAO pacientes;
 
+    /** Recibe el DAO que coordina la persistencia del paciente y su historial. */
     public PacienteController(PacienteDAO pacientes) {
         this.pacientes = pacientes;
     }
 
+    /** Lista los pacientes registrados. */
     @GetMapping
     public Paciente[] listar() {
         return pacientes.readAll();
     }
 
+    /** Busca un paciente por identificador y responde 404 si no se encuentra. */
     @GetMapping("/{id}")
     public Paciente buscar(@PathVariable int id) {
         Paciente paciente = pacientes.read(id);
@@ -40,6 +44,7 @@ public class PacienteController {
         return paciente;
     }
 
+    /** Crea el paciente con el rol fijo del recurso y devuelve HTTP 201. */
     @PostMapping
     public ResponseEntity<Paciente> crear(@RequestBody Paciente paciente) {
         paciente.setRol("Paciente");
@@ -48,6 +53,7 @@ public class PacienteController {
             .body(paciente);
     }
 
+    /** Actualiza el paciente de la ruta, conservando su identificador y rol. */
     @PutMapping("/{id}")
     public Paciente actualizar(@PathVariable int id, @RequestBody Paciente paciente) {
         paciente.setId(id);
@@ -58,6 +64,7 @@ public class PacienteController {
         return pacientes.read(id);
     }
 
+    /** Elimina al paciente y responde 204; los identificadores inexistentes producen 404. */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminar(@PathVariable int id) {
         if (!pacientes.delete(id)) {

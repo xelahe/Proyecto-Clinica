@@ -18,6 +18,7 @@ public class EspecialidadDAO extends BaseDAO implements CRUD {
     public EspecialidadDAO() { this(Conexion.mysql()); }
     public EspecialidadDAO(ProveedorConexion proveedor) { super(proveedor); }
 
+    /** Inserta una especialidad validada y asigna al objeto la clave generada. */
     @Override
     public boolean create(Object entidad) {
         Especialidad e = tipo(entidad, Especialidad.class);
@@ -35,6 +36,7 @@ public class EspecialidadDAO extends BaseDAO implements CRUD {
         });
     }
 
+    /** Busca una especialidad por identificador; devuelve {@code null} si no existe. */
     @Override
     public Especialidad read(int id) {
         return consulta(cn -> {
@@ -48,6 +50,7 @@ public class EspecialidadDAO extends BaseDAO implements CRUD {
         });
     }
 
+    /** Devuelve las especialidades ordenadas alfabéticamente por nombre. */
     @Override
     public Especialidad[] readAll() {
         List<Especialidad> lista = consulta(cn -> {
@@ -61,6 +64,7 @@ public class EspecialidadDAO extends BaseDAO implements CRUD {
         return lista.toArray(new Especialidad[0]);
     }
 
+    /** Actualiza el nombre de la especialidad existente identificada por la ruta. */
     @Override
     public boolean update(int id, Object entidad) {
         Especialidad e = tipo(entidad, Especialidad.class);
@@ -79,6 +83,7 @@ public class EspecialidadDAO extends BaseDAO implements CRUD {
         });
     }
 
+    /** Elimina la especialidad indicada y comunica si se encontró el registro. */
     @Override
     public boolean delete(int id) {
         return consulta(cn -> UsuarioSql.borrarPor(cn, "Especialidad", "id_especialidad", id) > 0);

@@ -27,6 +27,7 @@ public class PersonalDAO extends BaseDAO implements CRUD {
     public PersonalDAO() { this(Conexion.mysql()); }
     public PersonalDAO(ProveedorConexion proveedor) { super(proveedor); }
 
+    /** Inserta los datos compartidos y el perfil; si es médico, guarda también su registro profesional. */
     @Override
     public boolean create(Object entidad) {
         Personal p = tipo(entidad, Personal.class);
@@ -55,6 +56,7 @@ public class PersonalDAO extends BaseDAO implements CRUD {
         });
     }
 
+    /** Recupera el perfil y lo materializa como {@link Medico} cuando tiene registro médico asociado. */
     @Override
     public Personal read(int id) {
         return consulta(cn -> {
@@ -67,6 +69,7 @@ public class PersonalDAO extends BaseDAO implements CRUD {
         });
     }
 
+    /** Devuelve todo el personal ordenado por nombre, incluyendo los médicos especializados. */
     @Override
     public Personal[] readAll() {
         List<Personal> lista = consulta(cn -> {
@@ -95,6 +98,7 @@ public class PersonalDAO extends BaseDAO implements CRUD {
         return lista.toArray(new Personal[0]);
     }
 
+    /** Actualiza los datos del perfil y sincroniza la fila de Medico si cambió el subtipo recibido. */
     @Override
     public boolean update(int id, Object entidad) {
         Personal p = tipo(entidad, Personal.class);
@@ -131,6 +135,7 @@ public class PersonalDAO extends BaseDAO implements CRUD {
         });
     }
 
+    /** Elimina los perfiles clínicos dependientes y luego el usuario dentro de una transacción. */
     @Override
     public boolean delete(int id) {
         return transaccion(cn -> {

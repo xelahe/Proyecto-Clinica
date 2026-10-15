@@ -22,6 +22,7 @@ public final class Validador {
     private Validador() { }
 
     // ---------- helpers ----------
+    /** Rechaza el valor vacío y aplica luego el límite de longitud del campo. */
     static void obligatorio(String valor, String campo, int max) {
         if (valor == null || valor.isBlank()) {
             throw new ValidacionException("El campo '" + campo + "' es obligatorio.");
@@ -29,6 +30,7 @@ public final class Validador {
         opcional(valor, campo, max);
     }
 
+    /** Permite el valor nulo, pero limita la longitud cuando se proporcionó texto. */
     static void opcional(String valor, String campo, int max) {
         if (valor != null && valor.length() > max) {
             throw new ValidacionException("El campo '" + campo + "' no puede superar " + max + " caracteres.");
@@ -36,6 +38,7 @@ public final class Validador {
     }
 
     // ---------- HU01: registro de pacientes ----------
+    /** Valida los campos de identidad y contacto que comparte cualquier usuario. */
     public static void usuario(Usuario u) {
         if (u == null) {
             throw new ValidacionException("El usuario no puede ser nulo.");
@@ -46,6 +49,7 @@ public final class Validador {
         obligatorio(u.getDireccion(), "dirección", 200);
     }
 
+    /** Valida los datos comunes y los campos clínicos opcionales del paciente. */
     public static void paciente(Paciente p) {
         usuario(p);
         opcional(p.getCondicionSalud(), "condición de salud", 200);
@@ -53,6 +57,7 @@ public final class Validador {
     }
 
     // ---------- HU02: registro de personal de salud ----------
+    /** Valida tipo, certificación, especialidad y coherencia entre Personal y Medico. */
     public static void personal(Personal p) {
         usuario(p);
         if (p.getTipoPersonal() == null || !TIPOS_PERSONAL.contains(p.getTipoPersonal())) {
@@ -80,6 +85,7 @@ public final class Validador {
         }
     }
 
+    /** Comprueba día, rango horario y asociación con un miembro del personal. */
     public static void disponibilidad(Disponibilidad d) {
         if (d == null) {
             throw new ValidacionException("La disponibilidad no puede ser nula.");
@@ -99,6 +105,7 @@ public final class Validador {
         }
     }
 
+    /** Verifica que la especialidad tenga un nombre válido y no vacío. */
     public static void especialidad(Especialidad e) {
         if (e == null) {
             throw new ValidacionException("La especialidad no puede ser nula.");
@@ -107,6 +114,7 @@ public final class Validador {
     }
 
     // ---------- HU03 / HU04: solicitud de visita o asistencia ----------
+    /** Comprueba tipo, motivo, estado, relaciones y consistencia temporal de la cita. */
     public static void cita(CitaMedica c) {
         if (c == null) {
             throw new ValidacionException("La cita no puede ser nula.");
@@ -141,6 +149,7 @@ public final class Validador {
     }
 
     // ---------- HU14: inventario de medicamentos ----------
+    /** Verifica los límites de texto y que concentración y stock no sean negativos. */
     public static void medicamento(Medicamento m) {
         if (m == null) {
             throw new ValidacionException("El medicamento no puede ser nulo.");

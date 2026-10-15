@@ -1,7 +1,9 @@
+-- Reinicia y crea el esquema de desarrollo para el sistema de atención médica.
 DROP DATABASE IF EXISTS BaseDatoMedicaFD;
 CREATE DATABASE BaseDatoMedicaFD CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE BaseDatoMedicaFD;
 
+-- Usuario es la entidad raíz; los perfiles específicos reutilizan su identificador.
 CREATE TABLE Usuario (
     id_usuario  INT AUTO_INCREMENT PRIMARY KEY,
     nombre      VARCHAR(150) NOT NULL,
@@ -32,7 +34,7 @@ CREATE TABLE Familiar (
     FOREIGN KEY (id_paciente) REFERENCES Paciente(id_paciente)
 );
 
-
+-- Catálogo de especialidades y perfiles del personal clínico.
 CREATE TABLE Especialidad (
     id_especialidad INT AUTO_INCREMENT PRIMARY KEY,
     nombre          VARCHAR(100) NOT NULL UNIQUE
@@ -66,6 +68,7 @@ CREATE TABLE Disponibilidad (
     CONSTRAINT ck_disp_hora CHECK (horaFin > horaInicio)
 );
 
+-- Historial por paciente y ciclo de solicitud, asignación y atención de una cita.
 CREATE TABLE HistorialClinico (
     id_historial  INT AUTO_INCREMENT PRIMARY KEY,
     fechaCreacion DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -94,6 +97,7 @@ CREATE TABLE CitaMedica (
                                      OR fechaHoraFinReal >= fechaHoraInicioReal)
 );
 
+-- Avisos asociados a un usuario y a una cita, más la calificación única de la atención.
 CREATE TABLE Notificacion (
     id_notificacion INT AUTO_INCREMENT PRIMARY KEY,
     tipoEvento      VARCHAR(50) NOT NULL,
@@ -115,6 +119,7 @@ CREATE TABLE Calificacion (
     CONSTRAINT ck_calif_estrellas CHECK (estrellas BETWEEN 1 AND 5)
 );
 
+-- Información clínica que desarrolla una cita: diagnóstico, tratamiento y medicamentos.
 CREATE TABLE Diagnostico (
     id_diagnostico INT AUTO_INCREMENT PRIMARY KEY,
     descripcion    VARCHAR(300) NOT NULL,
@@ -167,7 +172,7 @@ CREATE TABLE DetalleReceta (
     CONSTRAINT ck_det_valores CHECK (frecuencia > 0 AND duracionDias > 0)
 );
 
-
+-- Trazabilidad de la administración efectiva de cada medicamento durante una cita.
 CREATE TABLE RegistroAdministracionMedicamento (
     id_registro        INT AUTO_INCREMENT PRIMARY KEY,
     horaAdministracion DATETIME NOT NULL,

@@ -18,6 +18,7 @@ public class HistorialClinico {
 
     private LocalDateTime fechaCreacion;
 
+    /** Punto previsto para consultar la información clínica del paciente; aún no tiene lógica. */
     public void consultar() {
         // TODO implement here
     }

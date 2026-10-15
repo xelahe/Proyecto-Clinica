@@ -22,6 +22,7 @@ public class Calificacion {
 
     private LocalDateTime fecha;
 
+    /** Punto previsto para registrar la valoración asociada a una cita; aún no tiene lógica. */
     public void registrar() {
         // TODO implement here
     }

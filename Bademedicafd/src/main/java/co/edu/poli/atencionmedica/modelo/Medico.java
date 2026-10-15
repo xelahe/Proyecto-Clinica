@@ -15,14 +15,17 @@ public class Medico extends Personal {
 
     private String numeroRegistroMedico;
 
+    /** Punto previsto para consultar el historial clínico de un paciente; aún no tiene lógica. */
     public void consultarHistorial() {
         // TODO implement here
     }
 
+    /** Punto previsto para registrar el diagnóstico derivado de la consulta; aún no tiene lógica. */
     public void diagnosticar() {
         // TODO implement here
     }
 
+    /** Punto previsto para emitir una receta vinculada al tratamiento; aún no tiene lógica. */
     public void emitirReceta() {
         // TODO implement here
     }

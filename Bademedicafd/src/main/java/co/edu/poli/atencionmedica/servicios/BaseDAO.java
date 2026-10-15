@@ -14,6 +14,7 @@ abstract class BaseDAO {
 
     @FunctionalInterface
     interface Trabajo<T> {
+        /** Ejecuta el trabajo usando la conexión JDBC que administra la operación. */
         T ejecutar(Connection cn) throws SQLException;
     }
 
@@ -49,6 +50,7 @@ abstract class BaseDAO {
         }
     }
 
+    /** Traduce códigos SQL conocidos a errores de validación o de acceso a datos del dominio. */
     private RuntimeException traducir(SQLException e) {
         switch (e.getErrorCode()) {
             case 1062:
@@ -73,14 +75,17 @@ abstract class BaseDAO {
         }
     }
 
+    /** Convierte una fecha-hora opcional del dominio al formato JDBC. */
     protected static Timestamp ts(LocalDateTime f) {
         return f == null ? null : Timestamp.valueOf(f);
     }
 
+    /** Convierte un valor JDBC opcional a la representación de fecha-hora del dominio. */
     protected static LocalDateTime ldt(Timestamp t) {
         return t == null ? null : t.toLocalDateTime();
     }
 
+    /** Comprueba el tipo recibido por un DAO y falla explícitamente si no coincide. */
     @SuppressWarnings("unchecked")
     protected static <T> T tipo(Object o, Class<T> clase) {
         if (!clase.isInstance(o)) {

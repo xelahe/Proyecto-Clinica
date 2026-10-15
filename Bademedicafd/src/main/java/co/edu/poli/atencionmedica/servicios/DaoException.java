@@ -5,6 +5,7 @@ package co.edu.poli.atencionmedica.servicios;
  * como problemas de conexión, restricciones de integridad o errores de SQL.
  */
 public class DaoException extends RuntimeException {
+    /** Conserva el error técnico original para su registro y diagnóstico. */
     public DaoException(String mensaje, Throwable causa) {
         super(mensaje, causa);
     }

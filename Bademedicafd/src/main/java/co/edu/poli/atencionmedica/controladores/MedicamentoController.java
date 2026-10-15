@@ -16,21 +16,25 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.net.URI;
 
+/** Expone las operaciones HTTP del CRUD de medicamentos bajo {@code /api/medicamentos}. */
 @RestController
 @RequestMapping("/api/medicamentos")
 public class MedicamentoController {
 
     private final MedicamentoDAO medicamentos;
 
+    /** Recibe el DAO que realiza la persistencia de los medicamentos. */
     public MedicamentoController(MedicamentoDAO medicamentos) {
         this.medicamentos = medicamentos;
     }
 
+    /** Lista el inventario completo. */
     @GetMapping
     public Medicamento[] listar() {
         return medicamentos.readAll();
     }
 
+    /** Busca un medicamento y responde 404 cuando el identificador no existe. */
     @GetMapping("/{id}")
     public Medicamento buscar(@PathVariable int id) {
         Medicamento medicamento = medicamentos.read(id);
@@ -40,6 +44,7 @@ public class MedicamentoController {
         return medicamento;
     }
 
+    /** Crea un medicamento y devuelve 201 junto con la ubicación de su nuevo recurso. */
     @PostMapping
     public ResponseEntity<Medicamento> crear(@RequestBody Medicamento medicamento) {
         medicamentos.create(medicamento);
@@ -47,6 +52,7 @@ public class MedicamentoController {
             .body(medicamento);
     }
 
+    /** Reemplaza los datos editables del medicamento indicado por la ruta. */
     @PutMapping("/{id}")
     public Medicamento actualizar(@PathVariable int id, @RequestBody Medicamento medicamento) {
         medicamento.setId(id);
@@ -56,6 +62,7 @@ public class MedicamentoController {
         return medicamentos.read(id);
     }
 
+    /** Elimina el medicamento y responde 204; si no existe, responde 404. */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminar(@PathVariable int id) {
         if (!medicamentos.delete(id)) {

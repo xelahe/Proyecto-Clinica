@@ -22,6 +22,7 @@ public class DisponibilidadDAO extends BaseDAO implements CRUD {
     public DisponibilidadDAO() { this(Conexion.mysql()); }
     public DisponibilidadDAO(ProveedorConexion proveedor) { super(proveedor); }
 
+    /** Guarda un rango horario validado y copia al modelo el identificador generado. */
     @Override
     public boolean create(Object entidad) {
         Disponibilidad d = tipo(entidad, Disponibilidad.class);
@@ -43,6 +44,7 @@ public class DisponibilidadDAO extends BaseDAO implements CRUD {
         });
     }
 
+    /** Busca una disponibilidad por identificador; devuelve {@code null} cuando no existe. */
     @Override
     public Disponibilidad read(int id) {
         return consulta(cn -> {
@@ -55,6 +57,7 @@ public class DisponibilidadDAO extends BaseDAO implements CRUD {
         });
     }
 
+    /** Devuelve todos los horarios, agrupados por personal y ordenados por identificador. */
     @Override
     public Disponibilidad[] readAll() {
         List<Disponibilidad> lista = consulta(cn -> {
@@ -83,6 +86,7 @@ public class DisponibilidadDAO extends BaseDAO implements CRUD {
         return lista.toArray(new Disponibilidad[0]);
     }
 
+    /** Valida y actualiza el horario existente sin cambiar su identificador. */
     @Override
     public boolean update(int id, Object entidad) {
         Disponibilidad d = tipo(entidad, Disponibilidad.class);
@@ -105,6 +109,7 @@ public class DisponibilidadDAO extends BaseDAO implements CRUD {
         });
     }
 
+    /** Elimina el horario identificado y devuelve si se borró una fila. */
     @Override
     public boolean delete(int id) {
         return consulta(cn -> UsuarioSql.borrarPor(cn, "Disponibilidad", "id_disponibilidad", id) > 0);

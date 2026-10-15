@@ -21,6 +21,7 @@ public class MedicamentoDAO extends BaseDAO implements CRUD {
     public MedicamentoDAO() { this(Conexion.mysql()); }
     public MedicamentoDAO(ProveedorConexion proveedor) { super(proveedor); }
 
+    /** Valida el medicamento, lo inserta y copia en el modelo su clave generada. */
     @Override
     public boolean create(Object entidad) {
         Medicamento m = tipo(entidad, Medicamento.class);
@@ -42,6 +43,7 @@ public class MedicamentoDAO extends BaseDAO implements CRUD {
         });
     }
 
+    /** Busca un medicamento por identificador; devuelve {@code null} si no existe. */
     @Override
     public Medicamento read(int id) {
         return consulta(cn -> {
@@ -54,6 +56,7 @@ public class MedicamentoDAO extends BaseDAO implements CRUD {
         });
     }
 
+    /** Recupera el inventario ordenado por nombre. */
     @Override
     public Medicamento[] readAll() {
         List<Medicamento> lista = consulta(cn -> {
@@ -67,6 +70,7 @@ public class MedicamentoDAO extends BaseDAO implements CRUD {
         return lista.toArray(new Medicamento[0]);
     }
 
+    /** Valida y actualiza los datos del medicamento existente sin cambiar su identificador. */
     @Override
     public boolean update(int id, Object entidad) {
         Medicamento m = tipo(entidad, Medicamento.class);
@@ -89,6 +93,7 @@ public class MedicamentoDAO extends BaseDAO implements CRUD {
         });
     }
 
+    /** Elimina el medicamento indicado y comunica si se encontró el registro. */
     @Override
     public boolean delete(int id) {
         return consulta(cn -> UsuarioSql.borrarPor(cn, "Medicamento", "id_medicamento", id) > 0);

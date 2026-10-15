@@ -19,6 +19,7 @@ final class UsuarioSql {
 
     private UsuarioSql() { }
 
+    /** Inserta los datos comunes del usuario y asigna al objeto la clave generada y su rol. */
     static void insertar(Connection cn, Usuario u, String rol) throws SQLException {
         String sql = "INSERT INTO Usuario(nombre, documento, contacto, direccion, rol) VALUES (?,?,?,?,?)";
         try (PreparedStatement ps = cn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -36,6 +37,7 @@ final class UsuarioSql {
         u.setRol(rol);
     }
 
+    /** Actualiza los datos compartidos de Usuario sin modificar su rol ni su identificador. */
     static void actualizar(Connection cn, int id, Usuario u) throws SQLException {
         String sql = "UPDATE Usuario SET nombre=?, documento=?, contacto=?, direccion=? WHERE id_usuario=?";
         try (PreparedStatement ps = cn.prepareStatement(sql)) {
@@ -49,6 +51,7 @@ final class UsuarioSql {
         u.setId(id);
     }
 
+    /** Elimina el usuario raíz y comunica si la base de datos encontró el registro. */
     static boolean eliminar(Connection cn, int id) throws SQLException {
         try (PreparedStatement ps = cn.prepareStatement("DELETE FROM Usuario WHERE id_usuario=?")) {
             ps.setInt(1, id);
@@ -56,6 +59,7 @@ final class UsuarioSql {
         }
     }
 
+    /** Copia al modelo los campos comunes de Usuario obtenidos en una consulta. */
     static void llenar(ResultSet rs, Usuario u) throws SQLException {
         u.setId(rs.getInt("id_usuario"));
         u.setNombre(rs.getString("nombre"));
@@ -73,6 +77,7 @@ final class UsuarioSql {
         }
     }
 
+    /** Comprueba la existencia de una fila usando la tabla, columna e identificador indicados. */
     static boolean existe(Connection cn, String tabla, String columna, int id) throws SQLException {
         try (PreparedStatement ps = cn.prepareStatement("SELECT 1 FROM " + tabla + " WHERE " + columna + "=?")) {
             ps.setInt(1, id);

@@ -32,22 +32,27 @@ public class CitaMedica {
 
     private String observaciones;
 
+    /** Punto previsto para solicitar la cita; la persistencia se realiza actualmente desde el DAO. */
     public void crear() {
         // TODO implement here
     }
 
+    /** Punto previsto para asignar personal y horario a la cita; aún no tiene lógica. */
     public void asignar() {
         // TODO implement here
     }
 
+    /** Punto previsto para registrar el inicio efectivo de la atención; aún no tiene lógica. */
     public void iniciar() {
         // TODO implement here
     }
 
+    /** Punto previsto para registrar la finalización de la atención; aún no tiene lógica. */
     public void completar() {
         // TODO implement here
     }
 
+    /** Punto previsto para cancelar la solicitud; aún no tiene lógica. */
     public void cancelar() {
         // TODO implement here
     }

@@ -24,10 +24,12 @@ public class Tratamiento {
 
     private String estado;
 
+    /** Punto previsto para marcar el tratamiento como iniciado; aún no tiene lógica. */
     public void iniciar() {
         // TODO implement here
     }
 
+    /** Punto previsto para marcar el tratamiento como finalizado; aún no tiene lógica. */
     public void finalizar() {
         // TODO implement here
     }

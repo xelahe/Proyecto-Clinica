@@ -61,6 +61,7 @@ public class DemoCrud {
     // ==================================================================
     // MENÚ PRINCIPAL
     // ==================================================================
+    /** Inicia la consola, verifica la conexión y despacha las opciones del menú principal. */
     public static void main(String[] args) {
         System.out.println("=======================================================");
         System.out.println("  PLATAFORMA DE ATENCIÓN MÉDICA EN CASA - CRUD");
@@ -113,6 +114,7 @@ public class DemoCrud {
     // ==================================================================
     // SUBMENÚS (uno por entidad)
     // ==================================================================
+    /** Mantiene el menú de pacientes abierto hasta que el usuario elige volver. */
     private static void menuPacientes() {
         boolean volver = false;
         while (!volver) {
@@ -138,6 +140,7 @@ public class DemoCrud {
         }
     }
 
+    /** Despacha el CRUD de personal y su consulta por tipo profesional. */
     private static void menuPersonal() {
         boolean volver = false;
         while (!volver) {
@@ -163,6 +166,7 @@ public class DemoCrud {
         }
     }
 
+    /** Despacha las operaciones para crear y consultar rangos horarios del personal. */
     private static void menuDisponibilidad() {
         boolean volver = false;
         while (!volver) {
@@ -188,6 +192,7 @@ public class DemoCrud {
         }
     }
 
+    /** Despacha las operaciones de mantenimiento del catálogo de especialidades. */
     private static void menuEspecialidades() {
         boolean volver = false;
         while (!volver) {
@@ -211,6 +216,7 @@ public class DemoCrud {
         }
     }
 
+    /** Despacha las consultas y cambios de estado disponibles para las citas médicas. */
     private static void menuCitas() {
         boolean volver = false;
         while (!volver) {
@@ -242,6 +248,7 @@ public class DemoCrud {
         }
     }
 
+    /** Despacha las operaciones de mantenimiento del inventario de medicamentos. */
     private static void menuMedicamentos() {
         boolean volver = false;
         while (!volver) {

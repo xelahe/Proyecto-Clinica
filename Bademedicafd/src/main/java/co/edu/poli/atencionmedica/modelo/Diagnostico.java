@@ -20,6 +20,7 @@ public class Diagnostico {
 
     private LocalDateTime fecha;
 
+    /** Punto previsto para registrar un diagnóstico asociado a una cita e historial; aún no tiene lógica. */
     public void registrar() {
         // TODO implement here
     }

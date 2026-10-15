@@ -21,6 +21,7 @@ public final class Conexion {
         return Conexion::abrir;
     }
 
+    /** Abre una conexión JDBC usando variables de entorno o los valores configurados por defecto. */
     public static Connection abrir() throws SQLException {
         String url  = env("DB_URL", URL_POR_DEFECTO);
         String user = env("DB_USER", "root");
@@ -28,6 +29,7 @@ public final class Conexion {
         return DriverManager.getConnection(url, user, pass);
     }
 
+    /** Lee una variable de entorno y usa el valor alternativo si no está definida o está vacía. */
     private static String env(String clave, String defecto) {
         String v = System.getenv(clave);
         return (v == null || v.isBlank()) ? defecto : v;

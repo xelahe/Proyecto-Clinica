@@ -22,6 +22,7 @@ public class Medicamento {
 
     private int stock;
 
+    /** Punto previsto para ajustar el inventario; aún no tiene lógica. */
     public void actualizarStock() {
         // TODO implement here
     }
