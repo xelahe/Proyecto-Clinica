@@ -188,3 +188,7 @@ CREATE TABLE RegistroAdministracionMedicamento (
 );
 
 SHOW TABLES;
+
+-- Verifica los registros después de haber creado todas las tablas.
+SELECT COUNT(*) AS pacientes FROM Paciente;
+SELECT COUNT(*) AS medicamentos FROM Medicamento;
