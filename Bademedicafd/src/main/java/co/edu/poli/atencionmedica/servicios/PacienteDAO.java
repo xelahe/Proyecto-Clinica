@@ -21,7 +21,7 @@ public class PacienteDAO extends BaseDAO implements CRUD {
         "SELECT " + UsuarioSql.COLUMNAS + ", p.condicionSalud, p.necesidadesCuidado "
       + "FROM Usuario u JOIN Paciente p ON p.id_paciente = u.id_usuario";
 
-    public PacienteDAO() { this(Conexion.mysql()); }
+    public PacienteDAO() { this(Conexion.configurada()); }
     public PacienteDAO(ProveedorConexion proveedor) { super(proveedor); }
 
     /** Inserta el usuario y perfil de paciente junto con su historial en una transacción atómica. */

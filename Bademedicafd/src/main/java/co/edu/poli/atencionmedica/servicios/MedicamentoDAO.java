@@ -18,7 +18,7 @@ public class MedicamentoDAO extends BaseDAO implements CRUD {
     private static final String SELECT =
         "SELECT id_medicamento, nombre, presentacion, concentracion, stock FROM Medicamento";
 
-    public MedicamentoDAO() { this(Conexion.mysql()); }
+    public MedicamentoDAO() { this(Conexion.configurada()); }
     public MedicamentoDAO(ProveedorConexion proveedor) { super(proveedor); }
 
     /** Valida el medicamento, lo inserta y copia en el modelo su clave generada. */

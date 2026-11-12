@@ -19,7 +19,7 @@ public class DisponibilidadDAO extends BaseDAO implements CRUD {
     private static final String SELECT =
         "SELECT id_disponibilidad, diaSemana, horaInicio, horaFin, id_personal FROM Disponibilidad";
 
-    public DisponibilidadDAO() { this(Conexion.mysql()); }
+    public DisponibilidadDAO() { this(Conexion.configurada()); }
     public DisponibilidadDAO(ProveedorConexion proveedor) { super(proveedor); }
 
     /** Guarda un rango horario validado y copia al modelo el identificador generado. */

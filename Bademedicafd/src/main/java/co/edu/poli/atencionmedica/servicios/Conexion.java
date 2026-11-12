@@ -12,21 +12,29 @@ import java.sql.SQLException;
 public final class Conexion {
 
     private static final String URL_POR_DEFECTO =
-        "jdbc:mysql://localhost:3306/BaseDatoMedicaFD?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=America/Bogota";
+        "jdbc:h2:mem:bademedicafd;MODE=MySQL;DB_CLOSE_DELAY=-1";
 
     private Conexion() { }
 
-    /** Proveedor estándar que usan los DAO por defecto. */
-    public static ProveedorConexion mysql() {
+    /** Proveedor configurado que usan los DAO por defecto. */
+    public static ProveedorConexion configurada() {
         return Conexion::abrir;
     }
 
-    /** Abre una conexión JDBC usando variables de entorno o los valores configurados por defecto. */
+    /** Indica si la conexión configurada usa la base de datos embebida H2. */
+    public static boolean usaH2() {
+        return env("DB_URL", URL_POR_DEFECTO).startsWith("jdbc:h2:");
+    }
+
+    /** Abre una conexión JDBC usando H2 por defecto o la URL configurada. */
     public static Connection abrir() throws SQLException {
         String url  = env("DB_URL", URL_POR_DEFECTO);
-        String user = env("DB_USER", "root");
+        boolean h2 = url.startsWith("jdbc:h2:");
+        String user = env("DB_USER", h2 ? "sa" : "root");
         String pass = System.getenv("DB_PASSWORD");
-        if (pass == null || pass.isBlank()) {
+        if (pass == null && h2) {
+            pass = "";
+        } else if (pass == null || pass.isBlank()) {
             throw new SQLException("Debe definir la variable de entorno DB_PASSWORD para conectarse a MySQL.");
         }
         return DriverManager.getConnection(url, user, pass);

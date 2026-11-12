@@ -52,6 +52,11 @@ abstract class BaseDAO {
 
     /** Traduce códigos SQL conocidos a errores de validación o de acceso a datos del dominio. */
     private RuntimeException traducir(SQLException e) {
+        if ("23505".equals(e.getSQLState())) {
+            return new ValidacionException(
+                "Ya existe un registro con ese valor único (documento, nombre o número de registro)."
+            );
+        }
         switch (e.getErrorCode()) {
             case 1062:
                 return new ValidacionException(

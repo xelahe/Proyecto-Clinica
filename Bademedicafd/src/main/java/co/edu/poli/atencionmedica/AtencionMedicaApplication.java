@@ -1,6 +1,7 @@
 package co.edu.poli.atencionmedica;
 
 import co.edu.poli.atencionmedica.servicios.Conexion;
+import co.edu.poli.atencionmedica.servicios.EsquemaH2;
 import co.edu.poli.atencionmedica.servicios.MedicamentoDAO;
 import co.edu.poli.atencionmedica.servicios.PacienteDAO;
 import org.slf4j.Logger;
@@ -27,17 +28,21 @@ public class AtencionMedicaApplication {
         SpringApplication.run(AtencionMedicaApplication.class, args);
     }
 
-    /** Verifica MySQL al arrancar y anuncia la dirección local de la aplicación. */
+    /** Inicializa la base de datos configurada y anuncia la dirección local. */
     @Bean
     ApplicationRunner verificarConexionMysql() {
         return args -> {
-            try (Connection ignored = Conexion.abrir()) {
-                LOGGER.info("Conexión a MySQL (BaseDatoMedicaFD) establecida correctamente.");
+            try (Connection conexion = Conexion.abrir()) {
+                if (Conexion.usaH2()) {
+                    EsquemaH2.inicializar(conexion);
+                    LOGGER.info("Conexión a H2 en memoria establecida; sus datos se perderán al cerrar la aplicación.");
+                } else {
+                    LOGGER.info("Conexión a MySQL (BaseDatoMedicaFD) establecida correctamente.");
+                }
                 LOGGER.info("Aplicación disponible en http://localhost:8080");
             } catch (SQLException e) {
                 throw new IllegalStateException(
-                    "No se pudo conectar a MySQL en localhost:3306/BaseDatoMedicaFD. "
-                        + "Verifique que el servidor esté activo, que la base exista y que DB_USER/DB_PASSWORD sean correctos.",
+                    "No se pudo inicializar o conectar con la base de datos configurada: " + e.getMessage(),
                     e
                 );
             }

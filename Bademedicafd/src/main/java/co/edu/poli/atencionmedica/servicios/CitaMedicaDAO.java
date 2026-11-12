@@ -20,7 +20,7 @@ public class CitaMedicaDAO extends BaseDAO implements CRUD {
         "SELECT id_cita, tipoServicio, motivo, estado, fechaHoraDeseada, fechaHoraProgramada, "
       + "fechaHoraInicioReal, fechaHoraFinReal, observaciones, id_paciente, id_personal FROM CitaMedica";
 
-    public CitaMedicaDAO() { this(Conexion.mysql()); }
+    public CitaMedicaDAO() { this(Conexion.configurada()); }
     public CitaMedicaDAO(ProveedorConexion proveedor) { super(proveedor); }
 
     /** Crea una solicitud pendiente sin asignar personal y refleja la clave generada en el modelo. */

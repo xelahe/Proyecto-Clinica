@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class EspecialidadDAO extends BaseDAO implements CRUD {
 
-    public EspecialidadDAO() { this(Conexion.mysql()); }
+    public EspecialidadDAO() { this(Conexion.configurada()); }
     public EspecialidadDAO(ProveedorConexion proveedor) { super(proveedor); }
 
     /** Inserta una especialidad validada y asigna al objeto la clave generada. */

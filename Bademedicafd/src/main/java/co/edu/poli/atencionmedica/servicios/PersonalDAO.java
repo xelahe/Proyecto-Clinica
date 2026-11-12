@@ -24,7 +24,7 @@ public class PersonalDAO extends BaseDAO implements CRUD {
     + "FROM Usuario u JOIN Personal pe ON pe.id_personal = u.id_usuario "
     + "LEFT JOIN Medico m ON m.id_medico = pe.id_personal";
 
-    public PersonalDAO() { this(Conexion.mysql()); }
+    public PersonalDAO() { this(Conexion.configurada()); }
     public PersonalDAO(ProveedorConexion proveedor) { super(proveedor); }
 
     /** Inserta los datos compartidos y el perfil; si es médico, guarda también su registro profesional. */
