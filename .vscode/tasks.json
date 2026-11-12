@@ -1,0 +1,31 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Run clinic with H2",
+            "type": "process",
+            "command": "mvn",
+            "args": [
+                "spring-boot:run"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}\\Bademedicafd"
+            },
+            "isBackground": true,
+            "problemMatcher": {
+                "owner": "clinic",
+                "pattern": {
+                    "regexp": "^$"
+                },
+                "background": {
+                    "activeOnStart": true,
+                    "endsPattern": "Started AtencionMedicaApplication in "
+                }
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated"
+            }
+        }
+    ]
+}
