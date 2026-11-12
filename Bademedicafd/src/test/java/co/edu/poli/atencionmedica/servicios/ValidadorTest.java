@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.Test;
 
 import co.edu.poli.atencionmedica.modelo.CitaMedica;
+import co.edu.poli.atencionmedica.modelo.Medicamento;
 
 /**
  * Pruebas unitarias de las reglas de validación aplicadas a las citas médicas.
@@ -51,5 +52,21 @@ class ValidadorTest {
             () -> Validador.cita(cita)
         );
         assertEquals("Una cita en estado Asignada debe tener personal asignado.", excepcion.getMessage());
+    }
+
+    @Test
+    void aceptaTelefonoDeSoloDigitosYRechazaOtrosCaracteres() {
+        assertDoesNotThrow(() -> Validador.telefono("3001234567"));
+        assertThrows(ValidacionException.class, () -> Validador.telefono("+573001234567"));
+        assertThrows(ValidacionException.class, () -> Validador.telefono("300-123-4567"));
+        assertThrows(ValidacionException.class, () -> Validador.telefono("1234567890123456"));
+    }
+
+    @Test
+    void rechazaConcentracionNoFinita() {
+        Medicamento medicamento = new Medicamento();
+        medicamento.setNombre("Medicamento");
+        medicamento.setConcentracion(Float.POSITIVE_INFINITY);
+        assertThrows(ValidacionException.class, () -> Validador.medicamento(medicamento));
     }
 }

@@ -56,6 +56,13 @@ public final class Validador {
         opcional(p.getNecesidadesCuidado(), "necesidades de cuidado", 200);
     }
 
+    /** Valida el teléfono numérico recibido por los formularios web de pacientes. */
+    public static void telefono(String valor) {
+        if (valor == null || !valor.matches("[0-9]{1,15}")) {
+            throw new ValidacionException("El teléfono debe contener solo números y máximo 15 dígitos.");
+        }
+    }
+
     // ---------- HU02: registro de personal de salud ----------
     /** Valida tipo, certificación, especialidad y coherencia entre Personal y Medico. */
     public static void personal(Personal p) {
@@ -159,8 +166,8 @@ public final class Validador {
         if (m.getStock() < 0) {
             throw new ValidacionException("El stock no puede ser negativo.");
         }
-        if (m.getConcentracion() < 0) {
-            throw new ValidacionException("La concentración no puede ser negativa.");
+        if (!Float.isFinite(m.getConcentracion()) || m.getConcentracion() < 0) {
+            throw new ValidacionException("La concentración debe ser un número finito no negativo.");
         }
     }
 }

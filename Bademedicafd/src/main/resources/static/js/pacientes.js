@@ -7,6 +7,7 @@ const feedback = document.querySelector("#feedback");
 const formTitle = document.querySelector("#form-title");
 const saveButton = document.querySelector("#save-button");
 const cancelEditButton = document.querySelector("#cancel-edit");
+const phoneInput = document.querySelector("#contacto");
 
 const fields = [
     "nombre",
@@ -16,6 +17,10 @@ const fields = [
     "condicionSalud",
     "necesidadesCuidado"
 ];
+
+phoneInput.addEventListener("input", () => {
+    phoneInput.value = phoneInput.value.replace(/[^0-9]/g, "").slice(0, 15);
+});
 
 /** Muestra un mensaje de estado y aplica el estilo de error cuando corresponde. */
 function showFeedback(message, isError = false) {

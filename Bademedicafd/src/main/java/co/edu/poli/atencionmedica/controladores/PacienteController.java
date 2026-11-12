@@ -2,6 +2,7 @@ package co.edu.poli.atencionmedica.controladores;
 
 import co.edu.poli.atencionmedica.modelo.Paciente;
 import co.edu.poli.atencionmedica.servicios.PacienteDAO;
+import co.edu.poli.atencionmedica.servicios.Validador;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -48,6 +49,7 @@ public class PacienteController {
     @PostMapping
     public ResponseEntity<Paciente> crear(@RequestBody Paciente paciente) {
         paciente.setRol("Paciente");
+        Validador.telefono(paciente.getContacto());
         pacientes.create(paciente);
         return ResponseEntity.created(URI.create("/api/pacientes/" + paciente.getId()))
             .body(paciente);
@@ -58,6 +60,7 @@ public class PacienteController {
     public Paciente actualizar(@PathVariable("id") int id, @RequestBody Paciente paciente) {
         paciente.setId(id);
         paciente.setRol("Paciente");
+        Validador.telefono(paciente.getContacto());
         if (!pacientes.update(id, paciente)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No se encontró el paciente.");
         }

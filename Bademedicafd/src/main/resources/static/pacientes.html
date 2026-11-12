@@ -49,8 +49,10 @@
             <input id="documento" name="documento" maxlength="20" required>
           </label>
           <label>
-            Teléfono o contacto <span class="required">*</span>
-            <input id="contacto" name="contacto" maxlength="100" autocomplete="tel" required>
+            Teléfono <span class="required">*</span>
+            <input id="contacto" name="contacto" type="tel" inputmode="numeric" maxlength="15"
+              pattern="[0-9]{1,15}" title="Ingresa solo números, hasta 15 dígitos."
+              autocomplete="tel" required>
           </label>
           <label>
             Dirección <span class="required">*</span>
@@ -88,7 +90,7 @@
             <tr>
               <th scope="col">Paciente</th>
               <th scope="col">Documento</th>
-              <th scope="col">Contacto</th>
+              <th scope="col">Teléfono</th>
               <th scope="col">Dirección</th>
               <th scope="col">Condición de salud</th>
               <th scope="col">Acciones</th>
