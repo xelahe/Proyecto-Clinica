@@ -8,10 +8,16 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import co.edu.poli.atencionmedica.modelo.CitaMedica;
+import co.edu.poli.atencionmedica.modelo.Disponibilidad;
+import co.edu.poli.atencionmedica.modelo.Especialidad;
 import co.edu.poli.atencionmedica.modelo.Medicamento;
+import co.edu.poli.atencionmedica.modelo.Medico;
 import co.edu.poli.atencionmedica.modelo.Paciente;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -77,5 +83,53 @@ class CrudH2Test {
 
         assertTrue(medicamentos.delete(medicamento.getId()));
         assertFalse(medicamentos.delete(medicamento.getId()));
+    }
+
+    @Test
+    void creaPersonalDisponibilidadYCitaConEsquemaH2Completo() {
+        Especialidad especialidad = new Especialidad();
+        especialidad.setNombre("Cardiología");
+        EspecialidadDAO especialidades = new EspecialidadDAO(proveedor);
+        assertTrue(especialidades.create(especialidad));
+
+        Medico medico = new Medico();
+        medico.setNombre("Dr. Ruiz");
+        medico.setDocumento("MED-001");
+        medico.setContacto("555-1111");
+        medico.setDireccion("Calle 10");
+        medico.setTipoPersonal("Medico");
+        medico.setCertificaciones("Certificado de cardiología");
+        medico.setVigenciaCertificacion(LocalDate.now().plusYears(1));
+        medico.setIdEspecialidad(especialidad.getId());
+        medico.setNumeroRegistroMedico("REG-2001");
+
+        PersonalDAO personal = new PersonalDAO(proveedor);
+        assertTrue(personal.create(medico));
+        medico.setNumeroRegistroMedico("REG-2002");
+        assertTrue(personal.update(medico.getId(), medico));
+        assertEquals("REG-2002", ((Medico) personal.read(medico.getId())).getNumeroRegistroMedico());
+
+        Disponibilidad disponibilidad = new Disponibilidad();
+        disponibilidad.setDiaSemana("Lunes");
+        disponibilidad.setHoraInicio(LocalTime.of(8, 0));
+        disponibilidad.setHoraFin(LocalTime.of(12, 0));
+        disponibilidad.setIdPersonal(medico.getId());
+        DisponibilidadDAO disponibilidades = new DisponibilidadDAO(proveedor);
+        assertTrue(disponibilidades.create(disponibilidad));
+
+        Paciente paciente = new Paciente();
+        paciente.setNombre("Luis Gomez");
+        paciente.setDocumento("PAC-001");
+        paciente.setContacto("555-2222");
+        paciente.setDireccion("Av. Siempre Viva");
+        assertTrue(pacientes.create(paciente));
+
+        CitaMedica cita = new CitaMedica();
+        cita.setTipoServicio("Asistencia");
+        cita.setMotivo("Consulta de seguimiento");
+        cita.setIdPaciente(paciente.getId());
+        CitaMedicaDAO citas = new CitaMedicaDAO(proveedor);
+        assertTrue(citas.create(cita));
+        assertEquals("Pendiente", citas.read(cita.getId()).getEstado());
     }
 }

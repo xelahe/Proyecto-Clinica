@@ -120,12 +120,10 @@ public class PersonalDAO extends BaseDAO implements CRUD {
             }
             if (p instanceof Medico m) {
                 try (PreparedStatement ps = cn.prepareStatement(
-                        "INSERT INTO Medico(id_medico, numeroRegistroMedico) VALUES (?,?) "
-                      + "ON DUPLICATE KEY UPDATE numeroRegistroMedico = ?")) {
+                        "MERGE INTO Medico(id_medico, numeroRegistroMedico) KEY(id_medico) VALUES (?, ?)")) {
                     String num = m.getNumeroRegistroMedico().trim();
                     ps.setInt(1, id);
                     ps.setString(2, num);
-                    ps.setString(3, num);
                     ps.executeUpdate();
                 }
             } else {
