@@ -36,7 +36,7 @@ public class PacienteController {
 
     /** Busca un paciente por identificador y responde 404 si no se encuentra. */
     @GetMapping("/{id}")
-    public Paciente buscar(@PathVariable int id) {
+    public Paciente buscar(@PathVariable("id") int id) {
         Paciente paciente = pacientes.read(id);
         if (paciente == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No se encontró el paciente.");
@@ -55,7 +55,7 @@ public class PacienteController {
 
     /** Actualiza el paciente de la ruta, conservando su identificador y rol. */
     @PutMapping("/{id}")
-    public Paciente actualizar(@PathVariable int id, @RequestBody Paciente paciente) {
+    public Paciente actualizar(@PathVariable("id") int id, @RequestBody Paciente paciente) {
         paciente.setId(id);
         paciente.setRol("Paciente");
         if (!pacientes.update(id, paciente)) {
@@ -66,7 +66,7 @@ public class PacienteController {
 
     /** Elimina al paciente y responde 204; los identificadores inexistentes producen 404. */
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminar(@PathVariable int id) {
+    public ResponseEntity<Void> eliminar(@PathVariable("id") int id) {
         if (!pacientes.delete(id)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No se encontró el paciente.");
         }

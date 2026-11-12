@@ -36,7 +36,7 @@ public class MedicamentoController {
 
     /** Busca un medicamento y responde 404 cuando el identificador no existe. */
     @GetMapping("/{id}")
-    public Medicamento buscar(@PathVariable int id) {
+    public Medicamento buscar(@PathVariable("id") int id) {
         Medicamento medicamento = medicamentos.read(id);
         if (medicamento == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No se encontró el medicamento.");
@@ -54,7 +54,7 @@ public class MedicamentoController {
 
     /** Reemplaza los datos editables del medicamento indicado por la ruta. */
     @PutMapping("/{id}")
-    public Medicamento actualizar(@PathVariable int id, @RequestBody Medicamento medicamento) {
+    public Medicamento actualizar(@PathVariable("id") int id, @RequestBody Medicamento medicamento) {
         medicamento.setId(id);
         if (!medicamentos.update(id, medicamento)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No se encontró el medicamento.");
@@ -64,7 +64,7 @@ public class MedicamentoController {
 
     /** Elimina el medicamento y responde 204; si no existe, responde 404. */
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminar(@PathVariable int id) {
+    public ResponseEntity<Void> eliminar(@PathVariable("id") int id) {
         if (!medicamentos.delete(id)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No se encontró el medicamento.");
         }
